@@ -89,7 +89,6 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
-
 //3lifestone modify start
-grails.converters.json.date= 'javascript'
+grails.converters.json.date = 'javascript'
 //3lifestone modify end
