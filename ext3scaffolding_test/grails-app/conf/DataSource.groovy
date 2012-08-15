@@ -25,6 +25,7 @@ environments {
             url = "jdbc:mysql://localhost/3lifestone?useUnicode=true&characterEncoding=UTF-8"
         }
     }
+    
     production {
         dataSource {
             dbCreate = "update"

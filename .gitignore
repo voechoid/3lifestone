@@ -1,0 +1,10 @@
+workspace.xml
+*.license
+
+/.idea
+
+/tmp
+
+*.class
+
+/target
