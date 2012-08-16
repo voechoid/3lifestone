@@ -39,9 +39,9 @@ class Ext3scaffoldingTagLib {
         String target=""
         if(init==false) {init()}
 
-        new File("execlog.txt").append(name)
-        new File("execlog.txt").append(runningWithinPlugin)
-        new File("execlog.txt").append(env)
+        //new File("execlog.txt").append(name)
+        //new File("execlog.txt").append(runningWithinPlugin)
+        //new File("execlog.txt").append(env)
 
         if(runningWithinPlugin==false)
         {

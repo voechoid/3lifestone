@@ -8,3 +8,13 @@ workspace.xml
 *.class
 
 /target
+.settings/
+stacktrace.log
+build/
+eclipse/
+plugin.xml
+target/
+test/reports/
+work/
+/web-app/
+grails-*.zip
