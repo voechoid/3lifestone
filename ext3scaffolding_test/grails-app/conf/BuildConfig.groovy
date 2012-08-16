@@ -56,3 +56,4 @@ grails.project.dependency.resolution = {
 grails.project.plugins.dir="./plugins"
 
 grails.plugin.location.ext3scaffolding="D:/Development/3lifestone/ext3scaffolding"
+grails.plugin.location.shiro="D:/Development/3lifestone/shiro"

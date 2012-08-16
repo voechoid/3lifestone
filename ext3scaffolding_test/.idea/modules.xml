@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Ext3scaffolding_test.iml" filepath="$PROJECT_DIR$/Ext3scaffolding_test.iml" />
       <module fileurl="file://$PROJECT_DIR$/Ext3scaffolding_test-grailsPlugins.iml" filepath="$PROJECT_DIR$/Ext3scaffolding_test-grailsPlugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/ext3scaffolding-inplacePlugin.iml" filepath="$PROJECT_DIR$/ext3scaffolding-inplacePlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shiro-inplacePlugin.iml" filepath="$PROJECT_DIR$/shiro-inplacePlugin.iml" />
     </modules>
   </component>
 </project>

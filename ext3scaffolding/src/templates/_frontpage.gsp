@@ -65,7 +65,7 @@
 %>
 <html>
 <head>
-  <title>${application.config.iq.app.name} -- 3lifestone 提供支持</title>
+  <title>\${grailsApplication.config.iq.app.name}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<iq:ext_rsc/>
     <style type="text/css">
