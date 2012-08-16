@@ -8,7 +8,6 @@
       <sourceFolder url="file://$MODULE_DIR$/../shiro/grails-app/i18n" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../shiro/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../shiro/grails-app/taglib" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../shiro/test/unit" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

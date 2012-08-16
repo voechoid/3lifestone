@@ -176,21 +176,6 @@ target(createWildcardRealm: 'Creates a basic, but flexible database-backed realm
     event("CreatedArtefact", ['Realm', className])
 }
 
-target(createLdapRealm: "Creates a new LDAP realm.") {
-    def (pkg, prefix) = parsePrefix()
-
-    // Copy over the template LDAP realm.
-    def className = "${prefix}LdapRealm"
-    installTemplateEx("${className}.groovy", "grails-app/realms${packageToPath(pkg)}", "realms", "ShiroLdapRealm.groovy") {
-        ant.replace(file: artefactFile) {
-            ant.replacefilter(token: "@package.line@", value: (pkg ? "package ${pkg}\n\n" : ""))
-            ant.replacefilter(token: '@realm.name@', value: className)
-        }
-    }
-    
-    event("CreatedArtefact", ['Realm', className])
-}
-
 /**
  * Creates a SecurityFilters class from a template. This class protects
  * all URLs by default using access control by convention.
@@ -200,9 +185,9 @@ target(createSecurityFilters: "Creates a standard Grails filters class implement
 
     // Copy over the standard filters class.
     def className = "${prefix}SecurityFilters"
-    installTemplateEx("${className}.groovy", "grails-app/conf${packageToPath(pkg)}", "filters", "SecurityFilters.groovy") {
+    installTemplateEx("${className}.groovy", "grails-app/conf", "filters", "SecurityFilters.groovy") {
         ant.replace(file: artefactFile) {
-            ant.replacefilter(token: "@package.line@", value: (pkg ? "package ${pkg}\n\n" : ""))
+            //.ant.replacefilter(token: "@package.line@", value: (pkg ? "package ${pkg}\n\n" : ""))
             ant.replacefilter(token: '@filters.name@', value: className)
         }
     }
