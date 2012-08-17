@@ -1,16 +1,71 @@
 <%
-    def navigationGroups=[
-        '管理'
-    ]
+	import org.codehaus.groovy.grails.commons.GrailsClassUtils
+	def application = org.codehaus.groovy.grails.commons.ApplicationHolder.application
+	def applicationName=application.metadata['app.name']
+	print "<"
+	println "%"
+	println "    def navigationGroups=["
 
-    def navigationItems=[
-        '管理': """{title: '管理', border:false, html: '<a id="company" href="#"><center><img src="/ext3scaffolding_test/images/group.png"/><br>公司</center></a>',iconCls: 'settings'}"""
-    ]
+	//找出带有导航菜单标志的Domain Classes
+	def navigatableDomains=[]
+	application.getArtefacts("Domain").each{domainClass->
+		iqNavigation=GrailsClassUtils.getStaticPropertyValue(domainClass.clazz, "iqNavigation")
+		if(iqNavigation!=null)
+		{
+			navigatableDomains.add(domainClass)
+		}
+	}
+
+	//找出不重复的导航菜单组名称
+	def groups=(navigatableDomains*.clazz.iqNavigation["group"]).unique()
+
+	groups.eachWithIndex{group,i->
+		print "        '"+group+"'"
+		if(i<groups.size()-1)
+		{
+			print ","
+		}
+		println ""
+	}
+	println "    ]"
+    println ""
+    println "    def navigationItems=["
+
+    for(group in groups)
+    {
+		print "        '"+group+"': \""
+        def weightsOfGroup=(navigatableDomains*.clazz.iqNavigation["weight"]).unique().sort()     
+        
+        out << "\"\"{title: '${group}', border:false, html: '"
+        
+        for(weight in weightsOfGroup)
+        {
+            for(domain in navigatableDomains)
+            {
+                if(group==domain.clazz.iqNavigation.group && weight==domain.clazz.iqNavigation.weight)
+                {
+                    domainName=domain.clazz.name.toString().tokenize('.')[-1][0].toLowerCase()+domain.clazz.name.toString().tokenize('.')[-1][1..-1]
+                    domainChn=domain.clazz.iqDomain.chn
+                    domainUrl="/${applicationName}/${domainName}/index"
+                    out << "<a id=\"${domainName}\" href=\"#\"><center><img src=\"/${applicationName}/images/group.png\"/><br>${domainChn}</center></a>"
+                }
+            }
+        }
+
+        if(group!=groups[-1])
+        {
+            println "',iconCls: 'settings'}\"\"\","
+        }else{
+            println "',iconCls: 'settings'}\"\"\""
+        }
+	}
+    println "    ]"
+	print "%"
+	println ">"
 %>
-
 <html>
 <head>
-  <title>${grailsApplication.config.iq.app.name}</title>
+  <title>${application.config.iq.app.name} -- iqGrails 提供支持</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<iq:ext_rsc/>
     <style type="text/css">
@@ -53,9 +108,28 @@
                 },
                 items: [
 <%
-                   println navigationItems[navigationGroups[0]]
-              %>
+                        print "<"
+                        println "%"
+                        def i=0    
+                        for (group in groups)
+                        {
+                            print "                   println navigationItems[navigationGroups["
+                            print i
+                            print "]]"
 
+                            if(i<groups.size()-1)
+                            {
+                                print "+','"
+                            }
+
+                            println ""
+
+                            i=i+1
+                        }
+                    
+                        print "              %"
+                        println ">"
+%>
                 ]
             },
             new Ext.TabPanel({
@@ -72,13 +146,21 @@
             })
             ]
         });
-        Ext.get('company').on('click', function(){addTab('company','公司');});
+<%
+            navigatableDomains.each{domain->
 
+                    domainName=domain.clazz.name.toString().tokenize('.')[-1][0].toLowerCase()+domain.clazz.name.toString().tokenize('.')[-1][1..-1]
+                    domainChn=domain.clazz.iqDomain.chn
+                    domainUrl="/${applicationName}/${domainName}/index"
+                    println "        Ext.get('${domainName}').on('click', function(){addTab('${domainName}','${domainChn}');});"
+            
+            }
+%>
         function addTab(domain, chn) {
             var mainTabPanel = Ext.getCmp('tabs');
             var tp = null;
 
-            var url ="<iframe src='/ext3scaffolding_test/"+domain+"/index' scrolling='auto' frameborder='0' style='width:100%; height:100%;overflow:hidden;'/>";
+            var url ="<iframe src='/${applicationName}/"+domain+"/index' scrolling='auto' frameborder='0' style='width:100%; height:100%;overflow:hidden;'/>";
             if (!mainTabPanel.getComponent(domain)) {
                 tp = new Ext.TabPanel({
                     header: true,
@@ -107,9 +189,12 @@
     <div id="center2" class="x-hide-display">
         <a id="hideit" href="#">Toggle the west region</a>
         <p>My closable attribute is set to false so you can't close me. The other center panels can be closed.</p>
-        
-        Company business.Company Company<BR>
-
+        <%
+            println ""
+	        application.getArtefacts("Domain").each{
+	            println "        "+it.name+" "+it.fullName+" "+it.shortName+"<BR>"
+            }
+        %>
     </div>
     <div id="center1" class="x-hide-display">
         <p><b>Done reading me? Close me by clicking the X in the top right corner.</b></p>

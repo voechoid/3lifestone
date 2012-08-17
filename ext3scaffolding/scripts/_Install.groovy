@@ -8,5 +8,5 @@
 //
 //    ant.mkdir(dir:"${basedir}/grails-app/jobs")
 //
-//ant.mkdir(dir: "${basedir}/grails-app/jobs")
-//ant.copy(file: "${pluginBasedir}/src/samples/SamplePluginConfig.groovy",todir: "${basedir}/grails-app/conf")
+ant.mkdir(dir: "${basedir}/grails-app/jobs")
+ant.copy(file: "${pluginBasedir}/src/samples/SamplePluginConfig.groovy",todir: "${basedir}/grails-app/conf")
