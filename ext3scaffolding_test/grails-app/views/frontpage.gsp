@@ -1,16 +1,18 @@
 <%
     def navigationGroups=[
-        '管理'
+        '管理',
+        '系统管理'
     ]
 
     def navigationItems=[
-        '管理': """{title: '管理', border:false, html: '<a id="company" href="#"><center><img src="/ext3scaffolding_test/images/group.png"/><br>公司</center></a>',iconCls: 'settings'}"""
+        '管理': """{title: '管理', border:false, html: '<a id="requestmap" href="#"><center><img src="/ext3scaffolding_test/images/group.png"/><br>模型</center></a><a id="company" href="#"><center><img src="/ext3scaffolding_test/images/group.png"/><br>公司</center></a>',iconCls: 'settings'}""",
+        '系统管理': """{title: '系统管理', border:false, html: '<a id="user" href="#"><center><img src="/ext3scaffolding_test/images/group.png"/><br>用户</center></a><a id="role" href="#"><center><img src="/ext3scaffolding_test/images/group.png"/><br>角色</center></a>',iconCls: 'settings'}"""
     ]
 %>
 
 <html>
 <head>
-  <title>[:] -- iqGrails 提供支持</title>
+  <title>哈哈客户关系管理系统 -- 3lifestone 提供支持</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<iq:ext_rsc/>
     <style type="text/css">
@@ -53,7 +55,8 @@
                 },
                 items: [
 <%
-                   println navigationItems[navigationGroups[0]]
+                   println navigationItems[navigationGroups[0]]+','
+                   println navigationItems[navigationGroups[1]]
               %>
 
                 ]
@@ -72,6 +75,9 @@
             })
             ]
         });
+        Ext.get('requestmap').on('click', function(){addTab('requestmap','模型');});
+        Ext.get('role').on('click', function(){addTab('role','角色');});
+        Ext.get('user').on('click', function(){addTab('user','用户');});
         Ext.get('company').on('click', function(){addTab('company','公司');});
 
         function addTab(domain, chn) {
@@ -108,6 +114,8 @@
         <a id="hideit" href="#">Toggle the west region</a>
         <p>My closable attribute is set to false so you can't close me. The other center panels can be closed.</p>
         
+        Role auth.Role Role<BR>
+        User auth.User User<BR>
         Company business.Company Company<BR>
 
     </div>

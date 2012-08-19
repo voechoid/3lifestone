@@ -32,7 +32,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
     dependencies {
-		runtime 'mysql:mysql-connector-java:5.1.21'
+		//runtime 'mysql:mysql-connector-java:5.1.21'
     }
 
     plugins {

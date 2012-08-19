@@ -4,8 +4,8 @@
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
-          <root url="file://$MODULE_DIR$/plugins/jquery-1.7.2/web-app" relative="/" />
           <root url="file://$MODULE_DIR$/plugins/database-migration-1.1/grails-app/views" relative="/" />
+          <root url="file://$MODULE_DIR$/plugins/jquery-1.7.2/web-app" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -49,7 +49,6 @@
       <library name="Grails User Library (Ext3scaffolding_test-grailsPlugins)">
         <CLASSES>
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.liquibase/liquibase-core/jars/liquibase-core-2.0.5.jar!/" />
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/mysql/mysql-connector-java/jars/mysql-connector-java-5.1.21.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
