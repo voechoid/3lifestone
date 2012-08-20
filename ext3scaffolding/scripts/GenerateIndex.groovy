@@ -13,7 +13,7 @@ includeTargets << grailsScript("_GrailsBootstrap")
 target(main: "Generate the index page accroding the navigation flag among the domain-classes.") {
     depends(loadApp)
 	
-	templateFilePath = "$ext3scaffoldingPluginDir/src/templates/_frontpage.gsp"
+	templateFilePath = "$triplelifestonePluginDir/src/templates/_frontpage.gsp"
 	outputFilePath = "$basedir/grails-app/views/frontpage.gsp"
 
 	File templateFile = new File(templateFilePath)
