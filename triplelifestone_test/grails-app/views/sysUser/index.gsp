@@ -27,7 +27,7 @@
             {fieldLabel:'id',name: 'id',xtype: 'numberfield',hidden:true,hideLabel:true},
             {fieldLabel: '姓名',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '姓名为必填项', maxLength: 16, maxLengthText: '姓名至多包含16个字符', minLength: 2, minLengthText: '姓名至少包含2个字符'},
             {fieldLabel: '登录名',name: 'login',xtype: 'textfield', allowBlank: false, blankText: '登录名为必填项', maxLength: 16, maxLengthText: '登录名至多包含16个字符', minLength: 4, minLengthText: '登录名至少包含4个字符'},
-            {fieldLabel: '密码',name: 'password',xtype: 'textfield', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符'},
+            {fieldLabel: '密码',name: 'password',xtype: 'textfield', inputType: 'password', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符'},
             {boxLabel: '是否启用',name: 'enable',xtype:'checkbox'},
             {name:'sysRole', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore}
 
@@ -82,7 +82,7 @@
             {fieldLabel:'id',name: 'id',xtype: 'numberfield',hidden:true,hideLabel:true},
             {fieldLabel: '姓名',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '姓名为必填项', maxLength: 16, maxLengthText: '姓名至多包含16个字符', minLength: 2, minLengthText: '姓名至少包含2个字符'},
             {fieldLabel: '登录名',name: 'login',xtype: 'textfield', allowBlank: false, blankText: '登录名为必填项', maxLength: 16, maxLengthText: '登录名至多包含16个字符', minLength: 4, minLengthText: '登录名至少包含4个字符'},
-            {fieldLabel: '密码',name: 'password',xtype: 'textfield', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符'},
+            {fieldLabel: '密码',name: 'password',xtype: 'textfield', inputType: 'password', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符'},
             {boxLabel: '是否启用',name: 'enable',xtype:'checkbox'},
             {name:'sysRole', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore}
 
@@ -137,7 +137,7 @@
             {fieldLabel:'id',name: 'id',xtype: 'numberfield',hidden:true,hideLabel:true},
             {fieldLabel: '姓名',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '姓名为必填项', maxLength: 16, maxLengthText: '姓名至多包含16个字符', minLength: 2, minLengthText: '姓名至少包含2个字符', readOnly:true},
             {fieldLabel: '登录名',name: 'login',xtype: 'textfield', allowBlank: false, blankText: '登录名为必填项', maxLength: 16, maxLengthText: '登录名至多包含16个字符', minLength: 4, minLengthText: '登录名至少包含4个字符', readOnly:true},
-            {fieldLabel: '密码',name: 'password',xtype: 'textfield', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符', readOnly:true},
+            {fieldLabel: '密码',name: 'password',xtype: 'textfield', inputType: 'password', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符', readOnly:true},
             {boxLabel: '是否启用',name: 'enable',xtype:'checkbox', readOnly:true},
             {name:'sysRole', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore, readOnly:true}
         ]

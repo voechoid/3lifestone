@@ -31,6 +31,7 @@
 	    birthday    attributes:[chn:"生日"],blank:false
 	    multiLine   attributes:[chn:"多行", widget: "textarea"],blank:true,size: 0..100
 	    htmlContent   attributes:[chn:"多行", widget: "htmleditor"],blank:true,size: 0..1000
+        password   attributes:[chn:"多行", inputType: "password"],blank:true,size: 6..32
     }
 
     String toString()

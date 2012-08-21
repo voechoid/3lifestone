@@ -21,7 +21,7 @@ class SysUser {
     static constraints = {
         name attributes: [chn: "姓名"], blank: false, size: 2..16, unique: true
         login attributes: [chn: "登录名"], blank: false, size: 4..16, unique: true
-        password attributes: [chn: "密码"], blank: false, size: 4..16
+        password attributes: [chn: "密码",inputType: "password"], blank: false, size: 4..16
         enable attributes: [chn: "是否启用"], blank: false
     }
 

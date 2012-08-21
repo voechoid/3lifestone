@@ -81,8 +81,12 @@
             }
             out <<"]}), emptyText:'请选择${prop.chn}',mode: 'local', triggerAction: 'all', valueField: 'values', displayField: 'values'"
         } else if (p.type == String.class) {
-	        out << "{fieldLabel: '${prop.chn}',name: '${p.name}',xtype: '${cp.attributes.widget?cp.attributes.widget:'textfield'}'"
+            out << "{fieldLabel: '${prop.chn}',name: '${p.name}',xtype: '${cp.attributes.widget?cp.attributes.widget:'textfield'}'"
 
+            if(cp.attributes.inputType!=null)
+            {
+                out << ", inputType: '${cp.attributes.inputType}'"
+            }
             if (cp.blank != true) {
                 out << ", allowBlank: false, blankText: '${prop.chn}为必填项'"
             }

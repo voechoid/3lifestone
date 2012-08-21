@@ -19,7 +19,7 @@
 
 	String      multiLine
 	String      htmlContent
-
+    String      password
 	//字段按照优先级和重要性排序，显示顺序
     //display默认=true
     static constraints = {
@@ -31,6 +31,7 @@
 	    birthday    attributes:[chn:"生日"],blank:false
 	    multiLine   attributes:[chn:"多行", widget: "textarea"],blank:true,size: 0..100
 	    htmlContent   attributes:[chn:"多行", widget: "htmleditor"],blank:true,size: 0..1000
+        password   attributes:[chn:"密码", widget: "password"],blank:true,size: 6..32
     }
 
     String toString()
