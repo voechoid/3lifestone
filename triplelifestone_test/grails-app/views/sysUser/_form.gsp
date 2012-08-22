@@ -34,11 +34,11 @@
 	<g:checkBox name="enable" chn="是否启用" value="${sysUserInstance?.enable}" />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: sysUserInstance, field: 'sysRole', 'error')} ">
-	<label for="sysRole">
-		<g:message code="sysUser.sysRole.label" default="Sys Role" />
+<div class="fieldcontain ${hasErrors(bean: sysUserInstance, field: 'sysRoles', 'error')} ">
+	<label for="sysRoles">
+		<g:message code="sysUser.sysRoles.label" default="Sys Roles" />
 		
 	</label>
-	<g:select name="sysRole" from="${iq.auth.SysRole.list()}" multiple="yes" optionKey="id" size="5" value="${sysUserInstance?.sysRole*.id}" />
+	<g:select name="sysRoles" from="${iq.auth.SysRole.list()}" multiple="yes" optionKey="id" size="5" value="${sysUserInstance?.sysRoles*.id}" />
 </div>
 

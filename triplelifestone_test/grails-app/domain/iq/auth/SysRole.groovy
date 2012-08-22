@@ -26,6 +26,10 @@ class SysRole {
         enable      attributes:[chn:"是否启用"],blank:false
     }
 
+    static mapping = {
+
+    }
+
     String toString()
     {
         return name

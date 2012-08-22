@@ -134,7 +134,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <iq:ext_rsc/>
+        <meta http-equiv="P3P" content='CP="CAO PSA OUR"'>
+    <iq:ext_rsc/>
         <title>${iqDomainClass.iqDomain.chn}管理</title>
     </head>
 	<body>

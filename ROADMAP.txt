@@ -4,6 +4,7 @@ V1.0计划:
 *高:MySQL5绑定 (2012-08-15)
 *高:权限管理(RBAC)、登入登出
 *高:frontpage页面的重构(2011-12-12)
+*中:inputType: "password"支持(2012-08-21)
 *中:Grails原生的Constraints支持，如: max, url等
 *中:TimeField支持(2011-12-24)
 *中:图表支持

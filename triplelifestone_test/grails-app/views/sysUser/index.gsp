@@ -3,7 +3,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <iq:ext_rsc/>
+        <meta http-equiv="P3P" content='CP="CAO PSA OUR"'>
+    <iq:ext_rsc/>
         <title>用户管理</title>
     </head>
 	<body>
@@ -29,7 +30,7 @@
             {fieldLabel: '登录名',name: 'login',xtype: 'textfield', allowBlank: false, blankText: '登录名为必填项', maxLength: 16, maxLengthText: '登录名至多包含16个字符', minLength: 4, minLengthText: '登录名至少包含4个字符'},
             {fieldLabel: '密码',name: 'password',xtype: 'textfield', inputType: 'password', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符'},
             {boxLabel: '是否启用',name: 'enable',xtype:'checkbox'},
-            {name:'sysRole', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore}
+            {name:'sysRoles', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore}
 
         ]
     });
@@ -84,7 +85,7 @@
             {fieldLabel: '登录名',name: 'login',xtype: 'textfield', allowBlank: false, blankText: '登录名为必填项', maxLength: 16, maxLengthText: '登录名至多包含16个字符', minLength: 4, minLengthText: '登录名至少包含4个字符'},
             {fieldLabel: '密码',name: 'password',xtype: 'textfield', inputType: 'password', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符'},
             {boxLabel: '是否启用',name: 'enable',xtype:'checkbox'},
-            {name:'sysRole', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore}
+            {name:'sysRoles', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore}
 
         ]
     });
@@ -139,7 +140,7 @@
             {fieldLabel: '登录名',name: 'login',xtype: 'textfield', allowBlank: false, blankText: '登录名为必填项', maxLength: 16, maxLengthText: '登录名至多包含16个字符', minLength: 4, minLengthText: '登录名至少包含4个字符', readOnly:true},
             {fieldLabel: '密码',name: 'password',xtype: 'textfield', inputType: 'password', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符', readOnly:true},
             {boxLabel: '是否启用',name: 'enable',xtype:'checkbox', readOnly:true},
-            {name:'sysRole', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore, readOnly:true}
+            {name:'sysRoles', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore, readOnly:true}
         ]
     });
 
@@ -284,7 +285,7 @@
         {header:'登录名',dataIndex:'login'},
         {header:'密码',dataIndex:'password'},
         {header:'是否启用',dataIndex:'enable', renderer: function(value){if(value==true)return '是'; else return '否';}},
-        {header:'角色',dataIndex:'sysRole'}
+        {header:'角色',dataIndex:'sysRoles'}
     ]);
 
     var store = new Ext.data.Store({
@@ -299,7 +300,7 @@
             {name:'login'},
             {name:'password'},
             {name:'enable'},
-            {name:'sysRole'}
+            {name:'sysRoles'}
         ])
     });
 

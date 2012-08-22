@@ -12,6 +12,49 @@ class SysUserController {
     def index = {
     }
 
+    def profile = {
+        session.login="linyu"
+        session.name="林禹"
+
+        println "within profile *******************************"
+        println session.login
+        println session.name
+
+        def sysUser = SysUser.findByLogin(session.login)
+
+        [id:SysUser.findByLogin(session.login).id]
+    }
+
+    def profileSubmit = {
+        def sysUser=SysUser.get(params.id)
+        sysUser.name=params.name
+        sysUser.login=params.login
+        sysUser.password=params.password
+        sysUser.enable=params.enable?true:false
+        def originSysRoles = sysUser.sysRoles*.id
+        def newSysRoles = params.sysRoles.tokenize(',')*.toLong()
+
+        if ((originSysRoles - newSysRoles).size() > 0) {
+            SysRole.getAll(originSysRoles - newSysRoles).each {sysRole ->
+                sysUser.removeFromSysRoles(sysRole)
+            }
+        }
+        if ((newSysRoles - originSysRoles).size() > 0) {
+            SysRole.getAll(newSysRoles - originSysRoles).each {sysRole ->
+                sysUser.addToSysRoles(sysRole)
+            }
+        }
+
+        try{
+            sysUser.save()
+            render "{success:true,msg:'记录更新'}";
+        }catch(Exception e){
+            println "Saving error"+sysUser.toString()
+            println e.toString()
+            render "{success:false,msg:'记录更新异常'}";
+        }
+    }
+
     def associationListJSON = {
         def sysUserTotal=SysUser.count()
 
@@ -55,7 +98,7 @@ class SysUserController {
                     login: item.login,
                     password: item.password,
                     enable: item.enable,
-                    sysRole: item.sysRole*.toString().join(',')
+                    sysRoles: item.sysRoles*.toString().join(',')
 
                 ))
             }
@@ -67,6 +110,11 @@ class SysUserController {
     }
 
     def detailJSON = {
+
+        println "within detailJSON .............................."
+
+        println params
+
         def sysUser = SysUser.get(params.id)
 
         if (sysUser) {
@@ -77,7 +125,7 @@ class SysUserController {
                     login: sysUser.login,
                     password: sysUser.password,
                     enable: sysUser.enable,
-                    sysRole: sysUser.sysRole*.id
+                    sysRoles: sysUser.sysRoles*.id
 
                 )
 
@@ -103,9 +151,9 @@ class SysUserController {
         sysUser.login=params.login
         sysUser.password=params.password
         sysUser.enable=params.enable?true:false
-        if(params.sysRole.tokenize(',').size()>0){
-            SysRole.getAll(params.sysRole.tokenize(',')*.toLong()).each{ sysRole->
-                sysUser.addToSysRole(sysRole)
+        if(params.sysRoles.tokenize(',').size()>0){
+            SysRole.getAll(params.sysRoles.tokenize(',')*.toLong()).each{ sysRole->
+                sysUser.addToSysRoles(sysRole)
             }
         }
 
@@ -127,17 +175,17 @@ class SysUserController {
         sysUser.login=params.login
         sysUser.password=params.password
         sysUser.enable=params.enable?true:false
-        def originSysRole = sysUser.sysRole*.id
-        def newSysRole = params.sysRole.tokenize(',')*.toLong()
+        def originSysRoles = sysUser.sysRoles*.id
+        def newSysRoles = params.sysRoles.tokenize(',')*.toLong()
 
-        if ((originSysRole - newSysRole).size() > 0) {
-            SysRole.getAll(originSysRole - newSysRole).each {sysRole ->
-                sysUser.removeFromSysRole(sysRole)
+        if ((originSysRoles - newSysRoles).size() > 0) {
+            SysRole.getAll(originSysRoles - newSysRoles).each {sysRole ->
+                sysUser.removeFromSysRoles(sysRole)
             }
         }
-        if ((newSysRole - originSysRole).size() > 0) {
-            SysRole.getAll(newSysRole - originSysRole).each {sysRole ->
-                sysUser.addToSysRole(sysRole)
+        if ((newSysRoles - originSysRoles).size() > 0) {
+            SysRole.getAll(newSysRoles - originSysRoles).each {sysRole ->
+                sysUser.addToSysRoles(sysRole)
             }
         }
 

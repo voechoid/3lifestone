@@ -1,4 +1,5 @@
 import iq.auth.SysRole
+import iq.auth.SysUser
 
 class BootStrap {
 
@@ -9,6 +10,14 @@ class BootStrap {
         println "Insiding bootstrap:"
         println SysRole.count
         println SysRole.findAll()
+
+        def linyu=new SysUser(name: "林禹",login: "linyu", password: "123456", enable: true)
+        linyu.addToSysRoles(SysRole.findByCode("ROLE_ADMIN"))
+        linyu.addToSysRoles(SysRole.findByCode("ROLE_USER"))
+
+        linyu.save()
+
+        println SysUser.findByLogin("linyu").sysRoles
     }
     def destroy = {
     }

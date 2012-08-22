@@ -1,5 +1,7 @@
 package iq.auth
 
+import org.springframework.transaction.annotation.Transactional
+
 class SysRoleController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

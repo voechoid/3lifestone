@@ -72,6 +72,7 @@
             })
             ]
         });
+
         Ext.get('sysUser').on('click', function(){addTab('sysUser','用户');});
         Ext.get('sysRole').on('click', function(){addTab('sysRole','角色');});
 

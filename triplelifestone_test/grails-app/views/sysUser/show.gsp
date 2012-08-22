@@ -59,12 +59,12 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${sysUserInstance?.sysRole}">
+				<g:if test="${sysUserInstance?.sysRoles}">
 				<li class="fieldcontain">
-					<span id="sysRole-label" class="property-label"><g:message code="sysUser.sysRole.label" default="Sys Role" /></span>
+					<span id="sysRoles-label" class="property-label"><g:message code="sysUser.sysRoles.label" default="Sys Roles" /></span>
 					
-						<g:each in="${sysUserInstance.sysRole}" var="s">
-						<span class="property-value" aria-labelledby="sysRole-label"><g:link controller="sysRole" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
+						<g:each in="${sysUserInstance.sysRoles}" var="s">
+						<span class="property-value" aria-labelledby="sysRoles-label"><g:link controller="sysRole" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>

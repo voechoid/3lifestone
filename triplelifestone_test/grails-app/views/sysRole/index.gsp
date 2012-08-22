@@ -3,7 +3,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <iq:ext_rsc/>
+        <meta http-equiv="P3P" content='CP="CAO PSA OUR"'>
+    <iq:ext_rsc/>
         <title>角色管理</title>
     </head>
 	<body>
@@ -24,7 +25,7 @@
         defaults:{ width:250},
         items: [
             {fieldLabel:'id',name: 'id',xtype: 'numberfield',hidden:true,hideLabel:true},
-            {fieldLabel: '名称',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '名称为必填项', maxLength: 16, maxLengthText: '名称至多包含16个字符', minLength: 4, minLengthText: '名称至少包含4个字符'},
+            {fieldLabel: '名称',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '名称为必填项', maxLength: 16, maxLengthText: '名称至多包含16个字符', minLength: 2, minLengthText: '名称至少包含2个字符'},
             {fieldLabel: '编码',name: 'code',xtype: 'textfield', allowBlank: false, blankText: '编码为必填项', maxLength: 16, maxLengthText: '编码至多包含16个字符', minLength: 4, minLengthText: '编码至少包含4个字符'},
             {fieldLabel: '简介',name: 'description',xtype: 'textarea', maxLength: 100, maxLengthText: '简介至多包含100个字符', minLength: 0, minLengthText: '简介至少包含0个字符'},
             {boxLabel: '是否启用',name: 'enable',xtype:'checkbox'}
@@ -78,7 +79,7 @@
         defaults:{ width:250},
         items: [
             {fieldLabel:'id',name: 'id',xtype: 'numberfield',hidden:true,hideLabel:true},
-            {fieldLabel: '名称',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '名称为必填项', maxLength: 16, maxLengthText: '名称至多包含16个字符', minLength: 4, minLengthText: '名称至少包含4个字符'},
+            {fieldLabel: '名称',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '名称为必填项', maxLength: 16, maxLengthText: '名称至多包含16个字符', minLength: 2, minLengthText: '名称至少包含2个字符'},
             {fieldLabel: '编码',name: 'code',xtype: 'textfield', allowBlank: false, blankText: '编码为必填项', maxLength: 16, maxLengthText: '编码至多包含16个字符', minLength: 4, minLengthText: '编码至少包含4个字符'},
             {fieldLabel: '简介',name: 'description',xtype: 'textarea', maxLength: 100, maxLengthText: '简介至多包含100个字符', minLength: 0, minLengthText: '简介至少包含0个字符'},
             {boxLabel: '是否启用',name: 'enable',xtype:'checkbox'}
@@ -132,7 +133,7 @@
         defaults:{ width:250},
         items: [
             {fieldLabel:'id',name: 'id',xtype: 'numberfield',hidden:true,hideLabel:true},
-            {fieldLabel: '名称',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '名称为必填项', maxLength: 16, maxLengthText: '名称至多包含16个字符', minLength: 4, minLengthText: '名称至少包含4个字符', readOnly:true},
+            {fieldLabel: '名称',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '名称为必填项', maxLength: 16, maxLengthText: '名称至多包含16个字符', minLength: 2, minLengthText: '名称至少包含2个字符', readOnly:true},
             {fieldLabel: '编码',name: 'code',xtype: 'textfield', allowBlank: false, blankText: '编码为必填项', maxLength: 16, maxLengthText: '编码至多包含16个字符', minLength: 4, minLengthText: '编码至少包含4个字符', readOnly:true},
             {fieldLabel: '简介',name: 'description',xtype: 'textarea', maxLength: 100, maxLengthText: '简介至多包含100个字符', minLength: 0, minLengthText: '简介至少包含0个字符', readOnly:true},
             {boxLabel: '是否启用',name: 'enable',xtype:'checkbox', readOnly:true}

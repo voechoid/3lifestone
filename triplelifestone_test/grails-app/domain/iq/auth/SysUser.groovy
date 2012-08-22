@@ -10,7 +10,7 @@ class SysUser {
     static iqDomain = [chn: "用户"]
     static iqLayout = [itemsPerPage: 15]
     static iqNavigation = [group: "系统管理", weight: 2]
-    static hasMany = [sysRole:SysRole]
+    static hasMany = [sysRoles:SysRole]
 
     String name
     String login
@@ -23,6 +23,10 @@ class SysUser {
         login attributes: [chn: "登录名"], blank: false, size: 4..16, unique: true
         password attributes: [chn: "密码",inputType: "password"], blank: false, size: 4..16
         enable attributes: [chn: "是否启用"], blank: false
+    }
+
+    static mapping = {
+        sysRoles(lazy: false)
     }
 
     String toString() {
