@@ -26,8 +26,7 @@ class AuthController {
                 session.name=user.name
                 session.sysRoles=user.sysRoles
 
-                //redirect(url: "/")
-                redirect(controller: "sysUser", action: "index")
+                redirect(controller: "home", action: "index")
             }else{
                 render "{success:false,msg:'记录创建异常'}";
             }
