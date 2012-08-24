@@ -7,14 +7,21 @@
     <iq:ext_rsc/>
         <title>用户管理</title>
     </head>
+    <style type="text/css">
+    #gridContainer {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
 	<body>
         <div id="sysUserToolbar"></div>
-        <div id="sysUserGrid"></div>
         <div id="sysUserCreateWin"></div>
         <div id="sysUserUpdateWin"></div>
         <div id="sysUserDetailWin"></div>
+        <div id="gridContainer"><div id="sysUserGrid"></div></div>
     </body>
-    <iq:ext_begin/>
+    <script type="text/javascript">
+Ext.onReady(function(){
     Ext.QuickTips.init();
     var sysRoleStore=new Ext.data.JsonStore({url: '/triplelifestone_test/sysRole/associationListJSON', fields:['id', 'value'],  root: 'root', totalProperty: 'total'});
 
@@ -308,14 +315,16 @@
         renderTo: 'sysUserGrid',
         store: store,
         enableColumnMove:false,
-        enableColumnResize:true,
+        enableColumnResize:false,
         stripeRows:true,
         enableHdMenu: false,
         trackMouseOver: true,
         loadMask:true,
+        autoScroll:false,
+        
         cm: cm,
         sm: sm,
-        height: 270,
+        height: Ext.get("gridContainer").getHeight()-27,
         viewConfig: {
             forceFit:true
         },
@@ -349,6 +358,7 @@
             sysUserUpdateWin.show();
         }
     });
-    <iq:ext_end/>
+});
+</script>
 </html>
 
