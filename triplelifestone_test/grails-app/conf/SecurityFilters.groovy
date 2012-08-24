@@ -15,10 +15,10 @@ class SecurityFilters {
     def filters = {
         all(controller:'*', action:'*') {
             before = {
-                if(!session.login && actionName!="login")
-                {
-                    redirect(controller: "auth", action: "login")
-                }
+//                if(!session.login && actionName!="login")
+//                {
+//                    redirect(controller: "auth", action: "login")
+//                }
             }
             after = {
                 

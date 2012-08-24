@@ -55,6 +55,7 @@ class Ext3scaffoldingTagLib {
 <link rel="stylesheet" type="text/css" href="/_APPNAME_/plugins/triplelifestone-1.0/ext3/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="/_APPNAME_/plugins/triplelifestone-1.0/ext3/fading-msg.css" />
 <link rel="stylesheet" type="text/css" href="/_APPNAME_/plugins/triplelifestone-1.0/ext3/ux/css/MultiSelect.css" />
+<link rel="stylesheet" type="text/css" href="/_APPNAME_/plugins/triplelifestone-1.0/css/triplelifestone.css" />
 <script type="text/javascript" src="/_APPNAME_/plugins/triplelifestone-1.0/ext3/adapter/ext/ext-base.js" ></script>
 <script type="text/javascript" src="/_APPNAME_/plugins/triplelifestone-1.0/ext3/ext-all.js" ></script>
 <script type="text/javascript" src="/_APPNAME_/plugins/triplelifestone-1.0/ext3/ux/MultiSelect.js"></script>

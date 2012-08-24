@@ -65,7 +65,7 @@
 %>
 <html>
 <head>
-  <title>${application.config.iq.app.name} -- 3lifestone 提供支持</title>
+  <title>${application.config.iq.app.name}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<iq:ext_rsc/>
     <style type="text/css">
@@ -81,10 +81,7 @@
         margin:0px;
     }
     .settings {
-        background-image:url(/foundation/ext/resources/icons/fam/folder_wrench.png);
-    }
-    .nav {
-        background-image:url(/foundation/ext/resources/icons/fam/folder_go.png);
+        background-image:url(/${applicationName}/images/skin/small.png);
     }
     </style>
     <iq:ext_begin />
@@ -139,8 +136,8 @@
                 activeTab: 0,
                 items: [{
                     contentEl: 'center1',
-                    title: 'Close Me',
-                    closable: true,
+                    title: '我的桌面',
+                    closable: false,
                     autoScroll: true
                 }]
             })

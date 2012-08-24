@@ -1,0 +1,39 @@
+#header_box {
+    background-color: #000000;
+}
+
+#footer {
+	background: #BBCCEE;
+    color: #2F2F2F;
+}
+
+.banner {
+    font:bold 28px "汉真广标";
+    float: left;
+    margin:0;
+    padding:0;
+    color: #0F0FAF;
+    border:0 none;
+    overflow:hidden;
+    text-indent: 2 em;
+    text-align: left;
+    _position:relative;
+    _top: 16%;
+}
+
+.topmenu {
+
+    line-height: 20px;
+    float: right;
+    height: 20px;
+    margin: 0;
+    padding: 0 10px 0 0;
+
+    font:bold 11px verdana;
+    margin:0;
+    color: blue;
+    border:0 none;
+    overflow:hidden;
+    _position:relative;
+    _top: 5%;
+}

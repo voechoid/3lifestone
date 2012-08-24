@@ -4,13 +4,13 @@
     ]
 
     def navigationItems=[
-        '系统管理': """{title: '系统管理', border:false, html: '<a id="sysUser" href="#"><center><img src="/triplelifestone_test/images/group.png"/><br>用户</center></a><a id="sysRole" href="#"><center><img src="/triplelifestone_test/images/group.png"/><br>角色</center></a>',iconCls: 'settings'}"""
+        '系统管理': """{title: '系统管理', border:false, html: '<a id="sysUserProfile" href="#"><center><img src="/triplelifestone_test/images/group.png"/><br>个人信息</center></a><a id="sysUserIndex" href="#"><center><img src="/triplelifestone_test/images/group.png"/><br>用户</center></a><a id="sysRoleIndex" href="#"><center><img src="/triplelifestone_test/images/group.png"/><br>角色</center></a>',iconCls: 'settings'}"""
     ]
 %>
-
+  
 <html>
 <head>
-  <title>哈哈客户关系管理系统 -- 3lifestone 提供支持</title>
+  <title>哈哈客户关系管理系统</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<iq:ext_rsc/>
     <style type="text/css">
@@ -18,18 +18,13 @@
         font:normal 12px verdana;
         margin:0;
         padding:0;
-        border:0 none;
-        overflow:hidden;
         height:100%;
     }
     p {
         margin:0px;
     }
     .settings {
-        background-image:url(/foundation/ext/resources/icons/fam/folder_wrench.png);
-    }
-    .nav {
-        background-image:url(/foundation/ext/resources/icons/fam/folder_go.png);
+        background-image:url(/triplelifestone_test/images/skin/small.png);
     }
     </style>
     <iq:ext_begin />
@@ -37,6 +32,16 @@
         var viewport = new Ext.Viewport({
             layout: 'border',
             items: [
+            {
+                region: 'north',
+                contentEl: 'header_box',
+                height: 42
+            },
+            {
+                region: 'south',
+                contentEl: 'footer',
+                height: 18
+            },
             {
                 region: 'west',
                 id: 'west',
@@ -65,46 +70,52 @@
                 activeTab: 0,
                 items: [{
                     contentEl: 'center1',
-                    title: 'Close Me',
-                    closable: true,
+                    title: '我的桌面',
+                    closable: false,
                     autoScroll: true
                 }]
             })
             ]
         });
 
-        Ext.get('sysUser').on('click', function(){addTab('sysUser','用户');});
-        Ext.get('sysRole').on('click', function(){addTab('sysRole','角色');});
+        Ext.get('sysUserProfile').on('click', function(){addTab('sysUser','profile','个人信息');});
+        Ext.get('sysUserIndex').on('click', function(){addTab('sysUser','index','用户管理');});
+        Ext.get('sysRoleIndex').on('click', function(){addTab('sysRole','index','角色管理');});
 
-        function addTab(domain, chn) {
+        function addTab(domain, action, chn) {
             var mainTabPanel = Ext.getCmp('tabs');
             var tp = null;
 
-            var url ="<iframe src='/triplelifestone_test/"+domain+"/index' scrolling='auto' frameborder='0' style='width:100%; height:100%;overflow:hidden;'/>";
-            if (!mainTabPanel.getComponent(domain)) {
+            if (!mainTabPanel.getComponent(domain+action)) {
+                var url ="<iframe src='/triplelifestone_test/"+domain+"/"+action+"' scrolling='auto' frameborder='0' style='width:100%; height:100%;overflow:hidden;'/>";
                 tp = new Ext.TabPanel({
                     header: true,
                     iconCls : 'tab',
                     margins: '0 0 0 0',
-                    id : domain,
+                    id : domain+action,
                     enableTabScroll : true,
                     xtype : 'tabpanel',
                     closable : true,
-                    title : chn+"管理",
+                    title : chn,
                     html: url,
                     scripts: true,
                     headerCfg: {cls: 'hideHeader'}
                 });
                 mainTabPanel.add(tp);   
             }
-            mainTabPanel.setActiveTab(domain);
+            mainTabPanel.setActiveTab(domain+action);
         };
+
     <iq:ext_end />
 </head>
 <body>
     <!-- use class="x-hide-display" to prevent a brief flicker of the content -->
-    <div id="west" class="x-hide-display">
-        <p>Hi. I'm the west panel.</p>
+    <div id="header_box" class="header_box">
+        <div class="banner">联冠科技有限责任公司</div><div class="topmenu">个人设置&nbsp;意见反馈</div>
+    </div>
+
+    <div id="footer">
+        <p><center></font>三生石科技版权所有 2012-2012</center></p>
     </div>
     <div id="center2" class="x-hide-display">
         <a id="hideit" href="#">Toggle the west region</a>
@@ -116,15 +127,6 @@
     </div>
     <div id="center1" class="x-hide-display">
         <p><b>Done reading me? Close me by clicking the X in the top right corner.</b></p>
-        <p>Vestibulum semper. Nullam non odio. Aliquam quam. Mauris eu lectus non nunc auctor ullamcorper. Sed tincidunt molestie enim. Phasellus lobortis justo sit amet quam. Duis nulla erat, varius a, cursus in, tempor sollicitudin, mauris. Aliquam mi velit, consectetuer mattis, consequat tristique, pulvinar ac, nisl. Aliquam mattis vehicula elit. Proin quis leo sed tellus scelerisque molestie. Quisque luctus. Integer mattis. Donec id augue sed leo aliquam egestas. Quisque in sem. Donec dictum enim in dolor. Praesent non erat. Nulla ultrices vestibulum quam.</p>
-        <p>Duis hendrerit, est vel lobortis sagittis, tortor erat scelerisque tortor, sed pellentesque sem enim id metus. Maecenas at pede. Nulla velit libero, dictum at, mattis quis, sagittis vel, ante. Phasellus faucibus rutrum dui. Cras mauris elit, bibendum at, feugiat non, porta id, neque. Nulla et felis nec odio mollis vehicula. Donec elementum tincidunt mauris. Duis vel dui. Fusce iaculis enim ac nulla. In risus.</p>
-        <p>Donec gravida. Donec et enim. Morbi sollicitudin, lacus a facilisis pulvinar, odio turpis dapibus elit, in tincidunt turpis felis nec libero. Nam vestibulum tempus ipsum. In hac habitasse platea dictumst. Nulla facilisi. Donec semper ligula. Donec commodo tortor in quam. Etiam massa. Ut tempus ligula eget tellus. Curabitur id velit ut velit varius commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla facilisi. Fusce ornare pellentesque libero. Nunc rhoncus. Suspendisse potenti. Ut consequat, leo eu accumsan vehicula, justo sem lobortis elit, ac sollicitudin ipsum neque nec ante.</p>
-        <p>Aliquam elementum mauris id sem. Vivamus varius, est ut nonummy consectetuer, nulla quam bibendum velit, ac gravida nisi felis sit amet urna. Aliquam nec risus. Maecenas lacinia purus ut velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse sit amet dui vitae lacus fermentum sodales. Donec varius dapibus nisl. Praesent at velit id risus convallis bibendum. Aliquam felis nibh, rutrum nec, blandit non, mattis sit amet, magna. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam varius dignissim nibh. Quisque id orci ac ante hendrerit molestie. Aliquam malesuada enim non neque.</p>
-    </div>
-    <div id="props-panel" class="x-hide-display" style="width:200px;height:200px;overflow:hidden;">
-    </div>
-    <div id="south" class="x-hide-display">
-        <p>south - generally for informational stuff, also could be for status bar</p>
     </div>
 </body>
 </html>

@@ -13,7 +13,7 @@ target(main: "Generate the index page accroding the navigation flag among the do
     depends(loadApp)
 	
 	templateFilePath = "$triplelifestonePluginDir/src/templates/_frontpage.gsp"
-	outputFilePath = "$basedir/grails-app/views/index.gsp"
+	outputFilePath = "$basedir/grails-app/views/home/index.gsp"
 
 	File templateFile = new File(templateFilePath)
 	if (!templateFile.exists()) {
