@@ -140,12 +140,13 @@
     </head>
 	<body>
         <div id="${domainClass.propertyName}Toolbar"></div>
-        <div id="${domainClass.propertyName}Grid"></div>
         <div id="${domainClass.propertyName}CreateWin"></div>
         <div id="${domainClass.propertyName}UpdateWin"></div>
         <div id="${domainClass.propertyName}DetailWin"></div>
+        <div id="gridContainer"><div id="${domainClass.propertyName}Grid"></div></div>
     </body>
-    <iq:ext_begin/>
+    <script type="text/javascript">
+Ext.onReady(function(){
     Ext.QuickTips.init();
 <%
 	for(prop in iqDomainClass.properties)
@@ -539,7 +540,7 @@
         loadMask:true,
         cm: cm,
         sm: sm,
-        height: 270,
+        height: Ext.get("gridContainer").getHeight()-27,
         viewConfig: {
             forceFit:true
         },
@@ -582,6 +583,7 @@
             ${domainClass.propertyName}UpdateWin.show();
         }
     });
-    <iq:ext_end/>
+});
+    </script>
 </html>
 

@@ -121,6 +121,43 @@
 
     def index = {
     }
+<% if(className=="SysUser"){%>
+    def profile={
+        session.login="linyu"
+        session.name="林禹"
+
+        if(!session.login)
+        {
+            redirect(controller: "auth", action: "login")
+        }
+
+        [id:    SysUser.findByLogin(session.login)?.id]
+    }
+    def profileSubmit={
+        def sysUser=SysUser(params.id)
+
+        if(sysUser.login!=session.login)
+        {
+            redirect(controller: "auth", action: "login")
+        }
+
+        sysUser.name=params.name
+        sysUser.password=paramms.password
+        sysUser.enable=params.enable?true:false
+
+        try{
+            sysUser.save()
+
+            render "{success:true, msg:'用户信息已更新'}"
+        }catch(Exception e)
+        {
+            println "saving error:"+ sysUser
+            println e.toString()
+
+            render "{success:false, msg:'用户信息更新异常，请联系管理员'}"
+        }
+    }
+<%}%>
 
     def associationListJSON = {
         def ${domainClass.propertyName}Total=${className}.count()

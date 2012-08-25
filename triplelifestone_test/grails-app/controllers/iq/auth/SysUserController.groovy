@@ -12,48 +12,42 @@ class SysUserController {
     def index = {
     }
 
-    def profile = {
+    def profile={
         session.login="linyu"
         session.name="林禹"
 
-        println "within profile *******************************"
-        println session.login
-        println session.name
+        if(!session.login)
+        {
+            redirect(controller: "auth", action: "login")
+        }
 
-        def sysUser = SysUser.findByLogin(session.login)
-
-        [id:SysUser.findByLogin(session.login).id]
+        [id:    SysUser.findByLogin(session.login)?.id]
     }
+    def profileSubmit={
+        def sysUser=SysUser(params.id)
 
-    def profileSubmit = {
-        def sysUser=SysUser.get(params.id)
+        if(sysUser.login!=session.login)
+        {
+            redirect(controller: "auth", action: "login")
+        }
+
         sysUser.name=params.name
-        sysUser.login=params.login
-        sysUser.password=params.password
+        sysUser.password=paramms.password
         sysUser.enable=params.enable?true:false
-        def originSysRoles = sysUser.sysRoles*.id
-        def newSysRoles = params.sysRoles.tokenize(',')*.toLong()
-
-        if ((originSysRoles - newSysRoles).size() > 0) {
-            SysRole.getAll(originSysRoles - newSysRoles).each {sysRole ->
-                sysUser.removeFromSysRoles(sysRole)
-            }
-        }
-        if ((newSysRoles - originSysRoles).size() > 0) {
-            SysRole.getAll(newSysRoles - originSysRoles).each {sysRole ->
-                sysUser.addToSysRoles(sysRole)
-            }
-        }
 
         try{
             sysUser.save()
-            render "{success:true,msg:'记录更新'}";
-        }catch(Exception e){
-            println "Saving error"+sysUser.toString()
+
+            render "{success:true, msg:'用户信息已更新'}"
+        }catch(Exception e)
+        {
+            println "saving error:"+ sysUser
             println e.toString()
-            render "{success:false,msg:'记录更新异常'}";
+
+            render "{success:false, msg:'用户信息更新异常，请联系管理员'}"
         }
     }
+
 
     def associationListJSON = {
         def sysUserTotal=SysUser.count()
@@ -110,11 +104,6 @@ class SysUserController {
     }
 
     def detailJSON = {
-
-        println "within detailJSON .............................."
-
-        println params
-
         def sysUser = SysUser.get(params.id)
 
         if (sysUser) {
