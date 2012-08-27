@@ -123,8 +123,8 @@
     }
 <% if(className=="SysUser"){%>
     def profile={
-        session.login="linyu"
-        session.name="林禹"
+        session.login="frank"
+        session.name="弗兰克"
 
         if(!session.login)
         {

@@ -92,5 +92,7 @@ log4j = {
 
 //3lifestone modify start
 grails.converters.json.date = 'javascript'
-iq.app.name="哈哈客户关系管理系统"
+iq.app.name="三生石客户关系管理系统"
+iq.app.banner="三生石客户关系管理系统"
+iq.app.footer="三生石科技有限公司&#160;&#169;&#160;2012&#160;版权所有"
 //3lifestone modify end

@@ -39,6 +39,7 @@ grails.project.dependency.resolution = {
 
     plugins {
         runtime ":hibernate:$grailsVersion"
+        runtime ":jquery:1.7.2"
         runtime ":resources:1.1.6"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
@@ -58,3 +59,4 @@ grails.project.dependency.resolution = {
 grails.project.plugins.dir="./plugins"
 grails.plugin.location.triplelifestone="D:/Development/3lifestone/triplelifestone"
 //3lifestone modify end
+

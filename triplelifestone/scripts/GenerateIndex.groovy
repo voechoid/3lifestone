@@ -30,7 +30,7 @@ target(main: "Generate the index page accroding the navigation flag among the do
 		template.make(binding).writeTo(writer)
 	}
 
-	println "frontpage.gsp generated at $outFile.absolutePath"
+	println "index.gsp generated at $outFile.absolutePath"
 }
 
 setDefaultTarget(main)

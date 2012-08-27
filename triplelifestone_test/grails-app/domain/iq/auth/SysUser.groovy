@@ -9,7 +9,7 @@ package iq.auth
 class SysUser {
     static iqDomain = [chn: "用户"]
     static iqLayout = [itemsPerPage: 15]
-    static iqNavigation = [group: "系统管理", weight: 2]
+    static iqNavigation = [group: "用户管理", weight: 2]
     static hasMany = [sysRoles:SysRole]
 
     String name
