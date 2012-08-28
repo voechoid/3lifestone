@@ -112,7 +112,7 @@ Ext.onReady(function() {
                 height: 40, // give north and south regions a height
                 autoEl: {
                     tag: 'div',
-                    html:'<div class="banner">${application.config.iq.app.banner}</div><div class="topmenu">个人设置&nbsp;意见反馈</div>'
+                    html:'<div class="banner">${application.config.iq.app.banner}</div><div class="topmenu"><% if(session.name){ out << session.name} %>&nbsp;个人设置&nbsp;意见反馈</div>'
                 }
             }),
             new Ext.BoxComponent({
@@ -177,7 +177,7 @@ Ext.onReady(function() {
 
                     domainName=domain.clazz.name.toString().tokenize('.')[-1][0].toLowerCase()+domain.clazz.name.toString().tokenize('.')[-1][1..-1]
                     domainChn=domain.clazz.iqDomain.chn
-                    println "        Ext.get('${domainName}Index').on('click', function(){addTab('${domainName}','index','${domainChn}管理');});"
+                    println "        Ext.get('${domainName}Index').on('click', function(){ addTab('${domainName}','index','${domainChn}管理');});"
             
             }
 %>

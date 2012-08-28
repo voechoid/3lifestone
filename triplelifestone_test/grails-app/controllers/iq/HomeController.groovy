@@ -6,7 +6,15 @@
 
 package iq
 
+import iq.auth.SysUser
+
 class HomeController {
 
-    def index() { }
+    def index() {
+        session.login="frank"
+        session.name=SysUser.findByLogin(session.login).name
+        session.sysRoles=SysUser.findByLogin(session.login).getSysRoles()
+
+        println session.sysRoles
+    }
 }

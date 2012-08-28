@@ -7,7 +7,7 @@
 class SecurityFilters {
 
     static authenticatedActions = [
-            [controller: 'sysUser', action: '*', roles: ['ROLE_ADMIN']],
+            [controller: 'sysUser', action: ['profile'], roles: ['ROLE_USER']],
             [controller: 'sysUser', action: '*', roles: ['ROLE_ADMIN']],
             [controller: 'sysRole', action: '*', roles: ['ROLE_ADMIN']]
     ]

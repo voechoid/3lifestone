@@ -19,5 +19,6 @@ class BootStrap {
         println SysUser.findByLogin("frank").sysRoles
     }
     def destroy = {
+
     }
 }

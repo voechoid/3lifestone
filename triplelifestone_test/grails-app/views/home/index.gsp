@@ -52,7 +52,7 @@ Ext.onReady(function() {
                 height: 40, // give north and south regions a height
                 autoEl: {
                     tag: 'div',
-                    html:'<div class="banner">三生石客户关系管理系统</div><div class="topmenu">个人设置&nbsp;意见反馈</div>'
+                    html:'<div class="banner">三生石客户关系管理系统</div><div class="topmenu"><% if(session.name){ out << session.name} %>&nbsp;个人设置&nbsp;意见反馈</div>'
                 }
             }),
             new Ext.BoxComponent({
