@@ -1,3 +1,4 @@
+<%@ page import="iq.auth.SysUser" %>
 <%
 
     def navigationGroupTemplate="{title: '_GROUP_', border:false, html: \"_ITEMS_\",icon: '_ICON_'}"
@@ -38,9 +39,6 @@
     p {
         margin:0px;
     }
-    .settings {
-        background-image:url(/triplelifestone_test/images/skin/small.png);
-    }
     </style>
     <script type="text/javascript">
 Ext.onReady(function() {
@@ -49,15 +47,15 @@ Ext.onReady(function() {
         items: [
             new Ext.BoxComponent({
                 region: 'north',
-                height: 40, // give north and south regions a height
+                height: 36,
                 autoEl: {
                     tag: 'div',
-                    html:'<div class="banner">三生石客户关系管理系统</div><div class="topmenu"><% if(session.name){ out << session.name} %>&nbsp;个人设置&nbsp;意见反馈</div>'
+                    html:'<div class="logo"><img src="/triplelifestone_test/images/logo.png" /></div><div class="banner">三生石客户关系管理系统</div><div class="topmenu"><iq:logout_link/>&nbsp;个人设置&nbsp;意见反馈</div>'
                 }
             }),
             new Ext.BoxComponent({
                 region: 'south',
-                height: 20, // give north and south regions a height
+                height: 20,
                 autoEl: {
                     tag: 'div',
                     html:'<div id="footer">三生石科技有限公司&#160;&#169;&#160;2012&#160;版权所有<div>'
@@ -113,6 +111,38 @@ Ext.onReady(function() {
         Ext.get('sysRoleIndex').on('click', function(){addTab('sysRole','index','角色管理');});
 
 });
+function addTab(domain, action, chn) {
+    var login="${session.name}";
+//    Ext.Msg.alert('login',login);
+//    alert(login);
+    if(login!=0)
+    {
+        var mainTabPanel = Ext.getCmp('tabs');
+        var tp = null;
+
+        if (!mainTabPanel.getComponent(domain+action)) {
+            var url ="<iframe src='/triplelifestone_test/"+domain+"/"+action+"' scrolling='false' frameborder='0' style='width:100%; height:100%;overflow:hidden;'/>";
+            tp = new Ext.TabPanel({
+                header: true,
+                iconCls : 'tab',
+                margins: '0 0 0 0',
+                id : domain+action,
+                enableTabScroll : true,
+                xtype : 'tabpanel',
+                closable : true,
+                autoScroll:false,
+                title : chn,
+                html: url,
+                scripts: true,
+                headerCfg: {cls: 'hideHeader'}
+            });
+            mainTabPanel.add(tp);
+        }
+        mainTabPanel.setActiveTab(domain+action);
+    }else{
+        window.location= "/triplelifestone_test/auth/logout";
+    }
+};
 </script>
 </head>
 <body>

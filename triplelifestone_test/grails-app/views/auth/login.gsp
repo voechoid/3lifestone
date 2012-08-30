@@ -7,8 +7,7 @@
   <g:if test="${flash.message}">
     <div class="message">${flash.message}</div>
   </g:if>
-  <g:form action="login">
-    <input type="hidden" name="targetUri" value="${targetUri}" />
+  <g:form action="login" url="/triplelifestone_test/auth/authenticate">
     <table>
       <tbody>
         <tr>

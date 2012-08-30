@@ -9,12 +9,13 @@
     </head>
 	<body>
         <div id="sysRoleToolbar"></div>
-        <div id="sysRoleGrid"></div>
         <div id="sysRoleCreateWin"></div>
         <div id="sysRoleUpdateWin"></div>
         <div id="sysRoleDetailWin"></div>
+        <div id="sysRoleGrid"></div>
     </body>
-    <iq:ext_begin/>
+    <script type="text/javascript">
+Ext.onReady(function(){
     Ext.QuickTips.init();
 
     var sysRoleCreateForm = new Ext.form.FormPanel({
@@ -306,7 +307,7 @@
         loadMask:true,
         cm: cm,
         sm: sm,
-        height: 270,
+        height: 470,
         viewConfig: {
             forceFit:true
         },
@@ -339,6 +340,7 @@
             sysRoleUpdateWin.show();
         }
     });
-    <iq:ext_end/>
+});
+    </script>
 </html>
 

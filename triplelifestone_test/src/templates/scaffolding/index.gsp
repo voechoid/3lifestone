@@ -143,7 +143,7 @@
         <div id="${domainClass.propertyName}CreateWin"></div>
         <div id="${domainClass.propertyName}UpdateWin"></div>
         <div id="${domainClass.propertyName}DetailWin"></div>
-        <div id="gridContainer"><div id="${domainClass.propertyName}Grid"></div></div>
+        <div id="${domainClass.propertyName}Grid"></div>
     </body>
     <script type="text/javascript">
 Ext.onReady(function(){
@@ -540,7 +540,7 @@ Ext.onReady(function(){
         loadMask:true,
         cm: cm,
         sm: sm,
-        height: Ext.get("gridContainer").getHeight()-27,
+        height: 459,
         viewConfig: {
             forceFit:true
         },

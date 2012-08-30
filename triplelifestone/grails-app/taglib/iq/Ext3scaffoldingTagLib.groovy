@@ -91,4 +91,25 @@ Ext.onReady(function() {"""
 });
 </script>"""
     }
+
+    def logout_link={attrs, body ->
+        if(init==false) {init()}
+
+        def welcome=""
+        int now=new Date().hours
+
+        if((0..4).contains(now)){
+            welcome="${session.name}！深夜了,注意休息"
+        }else if((5..12).contains(now)){
+            welcome="${session.name}！早上好"
+        }else if((13..18).contains(now)){
+            welcome="${session.name}！下午好"
+        }else{
+            welcome="${session.name}！晚上好"
+        }
+
+        welcome="<a href=\"/${name}/auth/logout\">${welcome}</a>"
+
+        out << "${welcome}"
+    }
 }

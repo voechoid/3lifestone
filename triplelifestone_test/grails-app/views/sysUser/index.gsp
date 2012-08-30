@@ -12,10 +12,12 @@
         <div id="sysUserCreateWin"></div>
         <div id="sysUserUpdateWin"></div>
         <div id="sysUserDetailWin"></div>
-        <div id="gridContainer"><div id="sysUserGrid"></div></div>
+        <div id="sysUserGrid"></div>
     </body>
     <script type="text/javascript">
 Ext.onReady(function(){
+
+    alert(screen.height);
     Ext.QuickTips.init();
     var sysRoleStore=new Ext.data.JsonStore({url: '/triplelifestone_test/sysRole/associationListJSON', fields:['id', 'value'],  root: 'root', totalProperty: 'total'});
 
@@ -316,7 +318,8 @@ Ext.onReady(function(){
         loadMask:true,
         cm: cm,
         sm: sm,
-        height: Ext.get("gridContainer").getHeight()-27,
+        height: 459,
+        autoScroll:false,
         viewConfig: {
             forceFit:true
         },
@@ -353,4 +356,3 @@ Ext.onReady(function(){
 });
     </script>
 </html>
-

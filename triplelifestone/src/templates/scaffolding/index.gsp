@@ -134,17 +134,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <iq:ext_rsc/>
+        <meta http-equiv="P3P" content='CP="CAO PSA OUR"'>
+    <iq:ext_rsc/>
         <title>${iqDomainClass.iqDomain.chn}管理</title>
     </head>
 	<body>
         <div id="${domainClass.propertyName}Toolbar"></div>
-        <div id="${domainClass.propertyName}Grid"></div>
         <div id="${domainClass.propertyName}CreateWin"></div>
         <div id="${domainClass.propertyName}UpdateWin"></div>
         <div id="${domainClass.propertyName}DetailWin"></div>
+        <div id="${domainClass.propertyName}Grid"></div>
     </body>
-    <iq:ext_begin/>
+    <script type="text/javascript">
+Ext.onReady(function(){
     Ext.QuickTips.init();
 <%
 	for(prop in iqDomainClass.properties)
@@ -538,7 +540,7 @@
         loadMask:true,
         cm: cm,
         sm: sm,
-        height: 270,
+        height: 470,
         viewConfig: {
             forceFit:true
         },
@@ -581,6 +583,7 @@
             ${domainClass.propertyName}UpdateWin.show();
         }
     });
-    <iq:ext_end/>
+});
+    </script>
 </html>
 

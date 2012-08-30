@@ -39,8 +39,8 @@ authorizationRules.each{
 //如果有一条规则匹配，则返回true
 result=false
 userAuthorizationRules.each{rule->
-    rule.controller=rule.controller.replace("*","[a-zA-Z0-9]*")
-    rule.action=rule.action.replace("*","[a-zA-Z0-9]*")
+    rule.controller=rule.controller.replace("*",".*")
+    rule.action=rule.action.replace("*",".*")
 
     if(result ==false && controller==~rule.controller && action==~rule.action)
     {

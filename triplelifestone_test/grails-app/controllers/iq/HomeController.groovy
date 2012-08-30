@@ -10,11 +10,19 @@ import iq.auth.SysUser
 
 class HomeController {
 
+    def beforeInterceptor = {
+        println "with homecontrolleer, before interceptor"
+        println actionName
+        println actionUri
+//        if(session.login==null)
+//        {
+//            println "redirect by homecontroller, before interceptor"
+//            redirect(controller: "auth", action: "login")
+//        }
+    }
     def index() {
-        session.login="frank"
-        session.name=SysUser.findByLogin(session.login).name
-        session.sysRoles=SysUser.findByLogin(session.login).getSysRoles()
-
+        println "within HomeController"
+        println session.login
         println session.sysRoles
     }
 }

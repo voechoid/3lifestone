@@ -7,15 +7,21 @@
 package iq.auth
 
 class AuthController {
-
+    def beforeInterceptor = {
+        println "with authcontrolleer, before interceptor"
+        println actionName
+        println actionUri
+    }
     def index() {
-        redirect(action: "login", params:params)
     }
 
     def login() {
-        println "within login:"
-        println params
+        println "*********auth-login"
+    }
 
+    def authenticate(){
+        println "*********auth-authenticate"
+        println params
         if(params.login && params.password)
         {
             def user=SysUser.findByLogin(params.login)
@@ -28,7 +34,8 @@ class AuthController {
 
                 redirect(controller: "home", action: "index")
             }else{
-                render "{success:false,msg:'记录创建异常'}";
+                [message:"wrong username or password."]
+                redirect(controller: "auth", action: "login")
             }
         }
     }

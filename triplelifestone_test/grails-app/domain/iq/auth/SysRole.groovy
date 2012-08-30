@@ -32,6 +32,6 @@ class SysRole {
 
     String toString()
     {
-        return name
+        return code
     }
 }

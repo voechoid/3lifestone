@@ -182,6 +182,37 @@ Ext.onReady(function() {
             }
 %>
 });
+function addTab(domain, action, chn) {
+    var login='\${session.name?session.name:"NO_AUTH"}';
+    Ext.Msg.alert('login',login);
+    alert(login);
+    if(login!="NO_AUTH")
+    {
+        var mainTabPanel = Ext.getCmp('tabs');
+        var tp = null;
+
+        if (!mainTabPanel.getComponent(domain+action)) {
+            var url ="<iframe src='/${applicationName}/"+domain+"/"+action+"' scrolling='false' frameborder='0' style='width:100%; height:100%;overflow:hidden;'/>";
+            tp = new Ext.TabPanel({
+                header: true,
+                iconCls : 'tab',
+                margins: '0 0 0 0',
+                id : domain+action,
+                enableTabScroll : true,
+                xtype : 'tabpanel',
+                closable : true,
+                title : chn,
+                html: url,
+                scripts: true,
+                headerCfg: {cls: 'hideHeader'}
+            });
+            mainTabPanel.add(tp);
+        }
+        mainTabPanel.setActiveTab(domain+action);
+    }else{
+        window.location= "/${applicationName}/auth/logout";
+    }
+};
 </script>
 </head>
 <body>
