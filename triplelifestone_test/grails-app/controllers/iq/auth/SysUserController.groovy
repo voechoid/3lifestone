@@ -13,9 +13,6 @@ class SysUserController {
     }
 
     def profile={
-        session.login="frank"
-        session.name="弗兰克"
-
         if(!session.login)
         {
             redirect(controller: "auth", action: "login")

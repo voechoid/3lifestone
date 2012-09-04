@@ -1,67 +1,64 @@
-<%@ page import="iq.auth.SysUser" %>
+<%@ page import="com.triplelifestone.Contact" %>
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="P3P" content='CP="CAO PSA OUR"'>
     <iq:ext_rsc/>
-        <title>用户管理</title>
+        <title>联系人管理</title>
     </head>
 	<body>
-        <div id="sysUserToolbar"></div>
-        <div id="sysUserCreateWin"></div>
-        <div id="sysUserUpdateWin"></div>
-        <div id="sysUserDetailWin"></div>
-        <div id="sysUserGrid"></div>
+        <div id="contactToolbar"></div>
+        <div id="contactCreateWin"></div>
+        <div id="contactUpdateWin"></div>
+        <div id="contactDetailWin"></div>
+        <div id="contactGrid"></div>
     </body>
     <script type="text/javascript">
 Ext.onReady(function(){
-
     Ext.QuickTips.init();
-    var sysRoleStore=new Ext.data.JsonStore({url: '/triplelifestone_test/sysRole/associationListJSON', fields:['id', 'value'],  root: 'root', totalProperty: 'total'});
 
-    var sysUserCreateForm = new Ext.form.FormPanel({
+    var contactCreateForm = new Ext.form.FormPanel({
         labelAlign: 'right',
         labelWidth: 80,
         frame: true,
-        url: '/triplelifestone_test/sysUser/createJSON',
+        url: '/triplelifestone_test/contact/createJSON',
         defaults:{ width:250},
         items: [
             {fieldLabel:'id',name: 'id',xtype: 'numberfield',hidden:true,hideLabel:true},
             {fieldLabel: '姓名',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '姓名为必填项', maxLength: 16, maxLengthText: '姓名至多包含16个字符', minLength: 2, minLengthText: '姓名至少包含2个字符'},
-            {fieldLabel: '登录名',name: 'login',xtype: 'textfield', allowBlank: false, blankText: '登录名为必填项', maxLength: 16, maxLengthText: '登录名至多包含16个字符', minLength: 4, minLengthText: '登录名至少包含4个字符'},
-            {fieldLabel: '密码',name: 'password',xtype: 'textfield', inputType: 'password', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符'},
-            {boxLabel: '是否启用',name: 'enable',xtype:'checkbox'},
-            {name:'sysRoles', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore}
+            {fieldLabel: '邮件',name: 'email',xtype: 'textfield', allowBlank: false, blankText: '邮件为必填项'},
+            {fieldLabel: '手机',name: 'mobile',xtype: 'textfield', allowBlank: false, blankText: '手机为必填项', maxLength: 11, maxLengthText: '手机至多包含11个字符', minLength: 11, minLengthText: '手机至少包含11个字符'},
+            {fieldLabel: '生日',name: 'birthday',xtype:'datefield',format:'Y-m-d'}
 
         ]
     });
 
-    var sysUserCreateWin = new Ext.Window({
-        el: 'sysUserCreateWin',
+    var contactCreateWin = new Ext.Window({
+        el: 'contactCreateWin',
         closable:false,
         layout: 'fit',
         width:400,
-        title:'创建用户',
+        title:'创建联系人',
         height:300,
         layout:'anchor',
 		autoScroll:true,
 		border:false,
         modal:true,
 		closeAction: 'hide',
-        items: [sysUserCreateForm],
+        items: [contactCreateForm],
         buttons: [
             {
                 text:'创建',
                 handler: function() {
-                    sysUserCreateForm.getForm().submit({
-                        success:function(sysUserCreateForm, action) {
+                    contactCreateForm.getForm().submit({
+                        success:function(contactCreateForm, action) {
                             Ext.fading_msg.msg('信息', action.result.msg);
-                            sysUserCreateWin.hide();
+                            contactCreateWin.hide();
                             store.reload();
                         },
                         failure:function() {
-                            Ext.fading_msg.msg('错误', "创建用户失败!");
+                            Ext.fading_msg.msg('错误', "创建联系人失败!");
                         }
                     });
                 }
@@ -69,54 +66,53 @@ Ext.onReady(function(){
             {
                 text: '取 消',
                 handler: function() {
-                    sysUserCreateWin.hide();
+                    contactCreateWin.hide();
                 }
             }
         ]
     });
 
-    var sysUserUpdateForm = new Ext.form.FormPanel({
+    var contactUpdateForm = new Ext.form.FormPanel({
         labelAlign: 'right',
         labelWidth: 80,
         frame: true,
-        url: '/triplelifestone_test/sysUser/updateJSON',
+        url: '/triplelifestone_test/contact/updateJSON',
         defaults:{ width:250},
         items: [
             {fieldLabel:'id',name: 'id',xtype: 'numberfield',hidden:true,hideLabel:true},
             {fieldLabel: '姓名',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '姓名为必填项', maxLength: 16, maxLengthText: '姓名至多包含16个字符', minLength: 2, minLengthText: '姓名至少包含2个字符'},
-            {fieldLabel: '登录名',name: 'login',xtype: 'textfield', allowBlank: false, blankText: '登录名为必填项', maxLength: 16, maxLengthText: '登录名至多包含16个字符', minLength: 4, minLengthText: '登录名至少包含4个字符'},
-            {fieldLabel: '密码',name: 'password',xtype: 'textfield', inputType: 'password', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符'},
-            {boxLabel: '是否启用',name: 'enable',xtype:'checkbox'},
-            {name:'sysRoles', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore}
+            {fieldLabel: '邮件',name: 'email',xtype: 'textfield', allowBlank: false, blankText: '邮件为必填项'},
+            {fieldLabel: '手机',name: 'mobile',xtype: 'textfield', allowBlank: false, blankText: '手机为必填项', maxLength: 11, maxLengthText: '手机至多包含11个字符', minLength: 11, minLengthText: '手机至少包含11个字符'},
+            {fieldLabel: '生日',name: 'birthday',xtype:'datefield',format:'Y-m-d'}
 
         ]
     });
 
-    var sysUserUpdateWin = new Ext.Window({
-        el: 'sysUserUpdateWin',
+    var contactUpdateWin = new Ext.Window({
+        el: 'contactUpdateWin',
         closable:false,
         layout: 'fit',
         width: 400,
-        title: '修改用户',
+        title: '修改联系人',
         height: 300,
         layout:'anchor',
 		autoScroll:true,
 		border:false,
 		modal:true,
 		closeAction: 'hide',
-        items: [sysUserUpdateForm],
+        items: [contactUpdateForm],
         buttons: [
             {
                 text:'更新',
                 handler: function() {
-                    sysUserUpdateForm.getForm().submit({
-                        success:function(sysUserUpdateForm, action) {
+                    contactUpdateForm.getForm().submit({
+                        success:function(contactUpdateForm, action) {
                             Ext.fading_msg.msg('信息', action.result.msg);
-                            sysUserUpdateWin.hide();
+                            contactUpdateWin.hide();
                             store.reload();
                         },
                         failure:function() {
-                            Ext.fading_msg.msg('错误', "更新用户失败!");
+                            Ext.fading_msg.msg('错误', "更新联系人失败!");
                         }
                     });
                 }
@@ -124,61 +120,59 @@ Ext.onReady(function(){
             {
                 text: '取 消',
                 handler: function() {
-                    sysUserUpdateWin.hide();
+                    contactUpdateWin.hide();
                 }
             }
         ]
     });
 
-    var sysUserDetailForm = new Ext.form.FormPanel({
+    var contactDetailForm = new Ext.form.FormPanel({
         labelAlign: 'right',
         labelWidth: 80,
         frame: true,
-        url: '/triplelifestone_test/sysUser/detailJSON',
+        url: '/triplelifestone_test/contact/detailJSON',
         defaults:{ width:250},
         items: [
             {fieldLabel:'id',name: 'id',xtype: 'numberfield',hidden:true,hideLabel:true},
             {fieldLabel: '姓名',name: 'name',xtype: 'textfield', allowBlank: false, blankText: '姓名为必填项', maxLength: 16, maxLengthText: '姓名至多包含16个字符', minLength: 2, minLengthText: '姓名至少包含2个字符', readOnly:true},
-            {fieldLabel: '登录名',name: 'login',xtype: 'textfield', allowBlank: false, blankText: '登录名为必填项', maxLength: 16, maxLengthText: '登录名至多包含16个字符', minLength: 4, minLengthText: '登录名至少包含4个字符', readOnly:true},
-            {fieldLabel: '密码',name: 'password',xtype: 'textfield', inputType: 'password', allowBlank: false, blankText: '密码为必填项', maxLength: 16, maxLengthText: '密码至多包含16个字符', minLength: 4, minLengthText: '密码至少包含4个字符', readOnly:true},
-            {boxLabel: '是否启用',name: 'enable',xtype:'checkbox', readOnly:true},
-            {name:'sysRoles', fieldLabel: '角色', xtype: 'multiselect', dataFields: ['id','value'],valueField: 'id', displayField: 'value', store: sysRoleStore, readOnly:true}
+            {fieldLabel: '邮件',name: 'email',xtype: 'textfield', allowBlank: false, blankText: '邮件为必填项', readOnly:true},
+            {fieldLabel: '手机',name: 'mobile',xtype: 'textfield', allowBlank: false, blankText: '手机为必填项', maxLength: 11, maxLengthText: '手机至多包含11个字符', minLength: 11, minLengthText: '手机至少包含11个字符', readOnly:true},
+            {fieldLabel: '生日',name: 'birthday',xtype:'datefield',format:'Y-m-d', readOnly:true}
         ]
     });
 
-    var sysUserDetailWin = new Ext.Window({
-        el: 'sysUserDetailWin',
+    var contactDetailWin = new Ext.Window({
+        el: 'contactDetailWin',
         closable:false,
         layout: 'fit',
         width: 400,
-        title: '用户明细',
+        title: '联系人明细',
         height: 300,
         layout:'anchor',
 		autoScroll:true,
 		border:false,
 		modal:true,
 		closeAction: 'hide',
-        items: [sysUserDetailForm],
+        items: [contactDetailForm],
         buttons: [
             {
                 text: '确定',
                 handler: function() {
-                    sysUserDetailWin.hide();
+                    contactDetailWin.hide();
                 }
             }
         ]
     });
 
     var tb = new Ext.Toolbar();
-    tb.render('sysUserToolbar');
+    tb.render('contactToolbar');
 
     tb.add({
         text: '新建',
         icon: '/triplelifestone_test/images/skin/database_add.png',
         handler:function() {
-            sysRoleStore.reload();
 
-            sysUserCreateWin.show(this);
+            contactCreateWin.show(this);
         }
     }, {
         text: '修改',
@@ -188,17 +182,16 @@ Ext.onReady(function(){
             if (id == null) {
                 Ext.fading_msg.msg('注意', "请选择要修改的记录");
             }else{
-                sysUserUpdateForm.getForm().load({
-                    url:'/triplelifestone_test/sysUser/detailJSON?id=' + id,
+                contactUpdateForm.getForm().load({
+                    url:'/triplelifestone_test/contact/detailJSON?id=' + id,
                     success:function(form, action) {
                     },
                     failure:function() {
                         Ext.fading_msg.msg('错误', '服务器出现错误，稍后再试!');
                     }
                 });
-                sysRoleStore.reload();
 
-                sysUserUpdateWin.show();
+                contactUpdateWin.show();
             }
         }
     }, {
@@ -217,7 +210,7 @@ Ext.onReady(function(){
                 Ext.MessageBox.confirm('信息', '您确定删除编号为' + id + '的记录吗?', function(btn) {
                     if (btn == 'yes') {
                         Ext.Ajax.request({
-                            url: '/triplelifestone_test/sysUser/deleteJSON',
+                            url: '/triplelifestone_test/contact/deleteJSON',
                             params: {id:id},
                             success: function(result) {
                                 var json_str = Ext.util.JSON.decode(result.responseText);
@@ -241,17 +234,16 @@ Ext.onReady(function(){
             if (id == null) {
                 Ext.fading_msg.msg('注意', "请选择要显示的记录");
             }else{
-                sysUserDetailForm.getForm().load({
-                    url:'/triplelifestone_test/sysUser/detailJSON?id=' + id,
+                contactDetailForm.getForm().load({
+                    url:'/triplelifestone_test/contact/detailJSON?id=' + id,
                     success:function(form, action) {
                     },
                     failure:function() {
                         Ext.fading_msg.msg('错误', '服务器出现错误，稍后再试!');
                     }
                 });
-                sysRoleStore.reload();
 
-                sysUserDetailWin.show();
+                contactDetailWin.show();
             }
         }
     },{
@@ -284,30 +276,28 @@ Ext.onReady(function(){
     var cm = new Ext.grid.ColumnModel([
         sm,
         {header:'姓名',dataIndex:'name'},
-        {header:'登录名',dataIndex:'login'},
-        {header:'密码',dataIndex:'password'},
-        {header:'是否启用',dataIndex:'enable', renderer: function(value){if(value==true)return '是'; else return '否';}},
-        {header:'角色',dataIndex:'sysRoles'}
+        {header:'邮件',dataIndex:'email'},
+        {header:'手机',dataIndex:'mobile'},
+        {header:'生日',dataIndex:'birthday', type: 'date', renderer: Ext.util.Format.dateRenderer('Y-m-d')}
     ]);
 
     var store = new Ext.data.Store({
         autoLoad:true,
-        proxy: new Ext.data.HttpProxy({url:'/triplelifestone_test/sysUser/listJSON'}),
+        proxy: new Ext.data.HttpProxy({url:'/triplelifestone_test/contact/listJSON'}),
         reader: new Ext.data.JsonReader({
             totalProperty:'total',
             root:'root'
         }, [
 
             {name:'name'},
-            {name:'login'},
-            {name:'password'},
-            {name:'enable'},
-            {name:'sysRoles'}
+            {name:'email'},
+            {name:'mobile'},
+            {name:'birthday', type: 'date',  dateFormat:'c'}
         ])
     });
 
     var grid = new Ext.grid.GridPanel({
-        renderTo: 'sysUserGrid',
+        renderTo: 'contactGrid',
         store: store,
         enableColumnMove:false,
         enableColumnResize:true,
@@ -318,7 +308,6 @@ Ext.onReady(function(){
         cm: cm,
         sm: sm,
         height: 459,
-        autoScroll:false,
         viewConfig: {
             forceFit:true
         },
@@ -339,19 +328,19 @@ Ext.onReady(function(){
         if (id == null) {
             Ext.fading_msg.msg('注意', "请选择要修改的记录");
         } else {
-            sysUserUpdateForm.getForm().load({
-                url:'/triplelifestone_test/sysUser/detailJSON?id=' + id,
+            contactUpdateForm.getForm().load({
+                url:'/triplelifestone_test/contact/detailJSON?id=' + id,
                 success:function(form, action) {
                 },
                 failure:function() {
                     Ext.fading_msg.msg('错误', "服务器出现错误，稍后再试!");
                 }
             });
-                sysRoleStore.reload();
 
-            sysUserUpdateWin.show();
+            contactUpdateWin.show();
         }
     });
 });
     </script>
 </html>
+

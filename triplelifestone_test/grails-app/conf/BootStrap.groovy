@@ -2,6 +2,8 @@ import iq.auth.*
 
 class BootStrap {
 
+    def grailsApplication
+
     def init = { servletContext ->
         new SysRole(name: "系统管理员", code: "ROLE_ADMIN", description: "系统管理员", enable: true).save(flush: true, failOnError: true)
         new SysRole(name: "系统用户", code: "ROLE_USER", description: "系统用户", enable: true).save(flush: true, failOnError: true)
@@ -17,6 +19,9 @@ class BootStrap {
         frank.save()
 
         println SysUser.findByLogin("frank").sysRoles
+
+        println "authorizationRules:"
+        println grailsApplication.config.iq.authorizationRules
     }
     def destroy = {
 

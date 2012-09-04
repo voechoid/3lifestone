@@ -1,22 +1,15 @@
-import iq.auth.*
-
 //------------------------------------------------------------
 //	Author: voechoid
 //	Date: 2012/8/20
 //	Function: 
 //------------------------------------------------------------
+import iq.auth.*
 
 class SecurityFilters {
 
-    def authorizationRules = [
-            "ROLE_ADMIN":[
-                    [controller: "sys*", action: "*JSON"]
-            ],
+    def grailsApplication
 
-            "ROLE_USER":[
-                    [controller: "sysUser", action: "profile"]
-            ]
-    ]
+    def authorizationRules=grailsApplication.config.iq.authorizationRules
 
     def filters = {
         all(controller:'*', action:'*') {
@@ -25,7 +18,26 @@ class SecurityFilters {
                 println "session.login:"+ session.login
                 println "controller:"+controllerName
                 println "action:"+actionName
+                if(controllerName=="auth")
+                {
+                    return true
+                }
 
+                println "security filter ********************"
+                def roles = ""
+                if(session.getAttribute("login"))
+                {
+                    //roles=ROLE_USER,ROLE_ADMIN
+                    roles=SysUser.findByLogin(session.getAttribute("login")).getSysRoles()*.toString().join(",")
+                    println roles
+                }
+
+                if(roles!=null && roles.contains("ROLE_ADMIN") && controllerName=="sysRole" && actionName=="index")
+                {
+                    redirect(controller: "auth", action: "logout")
+
+                    return false
+                }
 //                if(controllerName=="auth")
 //                {
 //                    println "user is authing"

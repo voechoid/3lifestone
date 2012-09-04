@@ -41,9 +41,7 @@ class AuthController {
     }
 
     def logout() {
-        session.login=null
-        session.name=null
-        session.sysRoles=null
+        session.invalidate()
 
         redirect(controller: "auth", action: "login")
     }
