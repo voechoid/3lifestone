@@ -9,8 +9,6 @@ class SecurityFilters {
 
     def grailsApplication
 
-    def authorizationRules=grailsApplication.config.iq.authorizationRules
-
     def filters = {
         all(controller:'*', action:'*') {
             before = {
@@ -22,22 +20,27 @@ class SecurityFilters {
                 {
                     return true
                 }
+                def authorizationRules=grailsApplication.config.iq.authorizationRules
 
-                println "security filter ********************"
                 def roles = ""
-                if(session.getAttribute("login"))
+                def sessionLogin=session.getAttribute("login")
+                if(sessionLogin!=null)
                 {
                     //roles=ROLE_USER,ROLE_ADMIN
-                    roles=SysUser.findByLogin(session.getAttribute("login")).getSysRoles()*.toString().join(",")
-                    println roles
-                }
-
-                if(roles!=null && roles.contains("ROLE_ADMIN") && controllerName=="sysRole" && actionName=="index")
-                {
+                    roles=SysUser.findByLogin(sessionLogin).getSysRoles()*.toString().join(",")
+                    println sessionLogin+":"+roles
+                }else{
                     redirect(controller: "auth", action: "logout")
 
-                    return false
+                    return false;
                 }
+//
+//                if(roles!=null && roles.contains("ROLE_ADMIN") && controllerName=="sysRole" && actionName=="index")
+//                {
+//                    redirect(controller: "auth", action: "logout")
+//
+//                    return false
+//                }
 //                if(controllerName=="auth")
 //                {
 //                    println "user is authing"

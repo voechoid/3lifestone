@@ -77,6 +77,11 @@ log4j = {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
 
+    appenders{
+        file name: 'file', file: 'debug_log',append:false
+        console name: 'stdout'
+    }
+
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
@@ -88,6 +93,14 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    root {
+        error 'file', 'stdout'
+//        info 'file', 'stdout'
+//        warn 'file', 'stdout'
+//        debug 'file', 'stdout'
+        additivity = true
+    }
 }
 
 //3lifestone modify start
@@ -98,11 +111,13 @@ iq.app.footer="三生石科技有限公司&#160;&#169;&#160;2012&#160;版权所�
 
 iq.authorizationRules = [
         "ROLE_ADMIN":[
-                [controller: "sys*", action: "*JSON"]
+                [controller: "sysUser", action: "*"],
+                [controller: "sysRole", action: "*"],
+                [controller: "contact", action: "*"]
         ],
 
         "ROLE_USER":[
-                [controller: "sysUser", action: "profile"]
+                [controller: "sysUser", action: "*"]
         ]
 ]
 //3lifestone modify end

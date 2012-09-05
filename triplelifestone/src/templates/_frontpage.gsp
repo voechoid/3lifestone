@@ -112,7 +112,7 @@ Ext.onReady(function() {
                 height: 40, // give north and south regions a height
                 autoEl: {
                     tag: 'div',
-                    html:'<div class="banner">${application.config.iq.app.banner}</div><div class="topmenu"><% if(session.name){ out << session.name} %>&nbsp;个人设置&nbsp;意见反馈</div>'
+                    html:'<div class="banner">${application.config.iq.app.banner}</div><div class="topmenu"><iq:logout_link/>&nbsp;个人设置&nbsp;意见反馈</div>'
                 }
             }),
             new Ext.BoxComponent({
@@ -184,8 +184,6 @@ Ext.onReady(function() {
 });
 function addTab(domain, action, chn) {
     var login='\${session.name?session.name:"NO_AUTH"}';
-    Ext.Msg.alert('login',login);
-    alert(login);
     if(login!="NO_AUTH")
     {
         var mainTabPanel = Ext.getCmp('tabs');

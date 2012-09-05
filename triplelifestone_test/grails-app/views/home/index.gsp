@@ -1,8 +1,7 @@
 <%@ page import="iq.auth.SysUser" %>
 <%
-
     def navigationGroupTemplate="{title: '_GROUP_', border:false, html: \"_ITEMS_\",icon: '_ICON_'}"
-    def navigationItemTemplate="<a id='_NAME__ACTION_' href='#'><center><img src='/triplelifestone_test/images/_IMAGE_'/><br>_CHN_</center></a>"
+    def navigationItemTemplate="<a id='_CONTROLLER__ACTION_' href='#'><center><img src='/triplelifestone_test/images/_IMAGE_'/><br>_CHN_</center></a>"
     def tplGenerator={String tpl, Map map->
         def result=tpl
         map.each{key,value->
@@ -10,14 +9,46 @@
         }
         return result
     }
-    
+
+    def roles = SysUser.findByLogin(session.login).getSysRoles().join(",")
+    System.out.println "home,index:"+session.getAttribute("login")+","+roles
+
+    def authorizationRules=grailsApplication.config.iq.authorizationRules
+    def userAuthorizationRules=[]
+
+    authorizationRules.each{
+        if(roles.contains(it.key))
+        {
+            it.value.each{rule->
+                userAuthorizationRules << rule
+            }
+        }
+    }
+
+    //如果有一条规则匹配，则返回true
+    def isAuthorized={controller,action->
+        result=false
+        userAuthorizationRules.each{rule->
+            rule_controller=rule.controller.replace("*",".*")
+            rule_action=rule.action.replace("*",".*")
+
+            if(result ==false && controller==~rule_controller && action==~rule_action) result=true
+        }
+
+        System.out.println "isAuthorized:"+controller+":"+action+":"+result
+        return result
+    }
+
+
+
     def navigationGroups=[
         [group:'用户管理', icon:'settings', items:[
-            [name: 'sysUser', action:'Index', chn: '用户', image: 'group.png']
+            [controller: 'contact', action:'Index', chn: '联系人', image: 'group.png']        ,
+            [controller: 'sysUser', action:'Index', chn: '用户', image: 'group.png']
         ]]
 ,
         [group:'系统管理', icon:'settings', items:[
-            [name: 'sysRole', action:'Index', chn: '角色', image: 'group.png']
+            [controller: 'sysRole', action:'Index', chn: '角色', image: 'group.png']
         ]]
     ]
 %>
@@ -39,23 +70,27 @@
     p {
         margin:0px;
     }
+    .settings {
+        background-image:url(/triplelifestone_test/images/skin/small.png);
+    }
     </style>
     <script type="text/javascript">
 Ext.onReady(function() {
+
     var viewport = new Ext.Viewport({
         layout: 'border',
         items: [
             new Ext.BoxComponent({
                 region: 'north',
-                height: 36,
+                height: 40, // give north and south regions a height
                 autoEl: {
                     tag: 'div',
-                    html:'<div class="logo"><img src="/triplelifestone_test/images/logo.png" /></div><div class="banner">三生石客户关系管理系统</div><div class="topmenu"><iq:logout_link/>&nbsp;个人设置&nbsp;意见反馈</div>'
+                    html:'<div class="banner">三生石客户关系管理系统</div><div class="topmenu"><iq:logout_link/>&nbsp;个人设置&nbsp;意见反馈</div>'
                 }
             }),
             new Ext.BoxComponent({
                 region: 'south',
-                height: 20,
+                height: 20, // give north and south regions a height
                 autoEl: {
                     tag: 'div',
                     html:'<div id="footer">三生石科技有限公司&#160;&#169;&#160;2012&#160;版权所有<div>'
@@ -77,20 +112,52 @@ Ext.onReady(function() {
                 },
                 items: [
 <%
+    def userNavigationGroups=[]
+    System.out.println "navigationGroups:"+navigationGroups
+    System.out.println "userAuthorizationRules:"+userAuthorizationRules
     for (naviGroup in navigationGroups) {
-        def groupItemsHtml=""
+        naviGroup.items.each{item->
+            if(isAuthorized(item.controller, item.action))
+            {
+                userNavigationGroups << naviGroup.group
+            }
+        }
+    }
+    userNavigationGroups=userNavigationGroups.unique()
+
+    System.out.println "userNavigationGroups:"+userNavigationGroups
+
+    for (naviGroup in navigationGroups) {
+        if(!userNavigationGroups.contains(naviGroup.group))
+        {
+            continue
+        }
+
+        items=[]
+        naviGroup.items.each{item->
+            if(isAuthorized(item.controller, item.action))
+            {
+                items << item
+            }
+        }
+
+        groupItemsHtml=""
+        naviGroup.items=items
         naviGroup.items.each{item-> groupItemsHtml=groupItemsHtml+tplGenerator(navigationItemTemplate, item)}
+
         naviGroup.items=groupItemsHtml
+
         print tplGenerator(navigationGroupTemplate,naviGroup)
-        if(naviGroup!=navigationGroups[-1])
+
+        System.out.println "tplGenerator:"+tplGenerator(navigationGroupTemplate,naviGroup)
+
+        if(naviGroup.group!=userNavigationGroups[-1])
         {
             println ","
         }else{
             println ""
         }
-    }
-%>
-
+    }%>
                 ]
             },
             new Ext.TabPanel({
@@ -107,41 +174,45 @@ Ext.onReady(function() {
             })
             ]
         });
-        Ext.get('sysUserIndex').on('click', function(){addTab('sysUser','index','用户管理');});
-        Ext.get('sysRoleIndex').on('click', function(){addTab('sysRole','index','角色管理');});
+        if(Ext.get('contactIndex')!=null){Ext.get('contactIndex').on('click', function(){ addTab('contact','index','联系人管理');});}
+        Ext.get('sysRoleIndex').on('click', function(){ addTab('sysRole','index','角色管理');});
+        Ext.get('sysUserIndex').on('click', function(){ addTab('sysUser','index','用户管理');});
 
 });
-function addTab(domain, action, chn) {
-    var login="${session.name}";
-//    Ext.Msg.alert('login',login);
-//    alert(login);
-    if(login!=0)
-    {
-        var mainTabPanel = Ext.getCmp('tabs');
-        var tp = null;
 
-        if (!mainTabPanel.getComponent(domain+action)) {
-            var url ="<iframe src='/triplelifestone_test/"+domain+"/"+action+"' scrolling='false' frameborder='0' style='width:100%; height:100%;overflow:hidden;'/>";
-            tp = new Ext.TabPanel({
-                header: true,
-                iconCls : 'tab',
-                margins: '0 0 0 0',
-                id : domain+action,
-                enableTabScroll : true,
-                xtype : 'tabpanel',
-                closable : true,
-                autoScroll:false,
-                title : chn,
-                html: url,
-                scripts: true,
-                headerCfg: {cls: 'hideHeader'}
-            });
-            mainTabPanel.add(tp);
-        }
-        mainTabPanel.setActiveTab(domain+action);
-    }else{
+function session_check()
+{
+    var login='${session.getAttribute("login")}';
+    if(login==null)
+    {
         window.location= "/triplelifestone_test/auth/logout";
     }
+}
+function addTab(domain, action, chn) {
+
+    session_check();
+
+    var mainTabPanel = Ext.getCmp('tabs');
+    var tp = null;
+
+    if (!mainTabPanel.getComponent(domain+action)) {
+        var url ="<iframe src='/triplelifestone_test/"+domain+"/"+action+"' scrolling='false' frameborder='0' style='width:100%; height:100%;overflow:hidden;'/>";
+        tp = new Ext.TabPanel({
+            header: true,
+            iconCls : 'tab',
+            margins: '0 0 0 0',
+            id : domain+action,
+            enableTabScroll : true,
+            xtype : 'tabpanel',
+            closable : true,
+            title : chn,
+            html: url,
+            scripts: true,
+            headerCfg: {cls: 'hideHeader'}
+        });
+        mainTabPanel.add(tp);
+    }
+    mainTabPanel.setActiveTab(domain+action);
 };
 </script>
 </head>
