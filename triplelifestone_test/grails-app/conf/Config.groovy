@@ -112,8 +112,8 @@ iq.app.footer="三生石科技有限公司&#160;&#169;&#160;2012&#160;版权所�
 iq.authorizationRules = [
         "ROLE_ADMIN":[
                 [controller: "sysUser", action: "*"],
-                [controller: "sysRole", action: "*"],
-                [controller: "contact", action: "*"]
+                [controller: "sysRole", action: "*"]
+                //[controller: "contact", action: "*"]
         ],
 
         "ROLE_USER":[

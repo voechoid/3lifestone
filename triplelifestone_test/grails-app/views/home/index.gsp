@@ -1,7 +1,9 @@
-<%@ page import="iq.auth.SysUser" %>
+<%@ page import="iq.auth.*" %>
 <%
+
     def navigationGroupTemplate="{title: '_GROUP_', border:false, html: \"_ITEMS_\",icon: '_ICON_'}"
     def navigationItemTemplate="<a id='_CONTROLLER__ACTION_' href='#'><center><img src='/triplelifestone_test/images/_IMAGE_'/><br>_CHN_</center></a>"
+
     def tplGenerator={String tpl, Map map->
         def result=tpl
         map.each{key,value->
@@ -10,9 +12,8 @@
         return result
     }
 
-    def roles = SysUser.findByLogin(session.login).getSysRoles().join(",")
-    System.out.println "home,index:"+session.getAttribute("login")+","+roles
 
+    def roles = SysUser.findByLogin(session.login).getSysRoles().join(",")
     def authorizationRules=grailsApplication.config.iq.authorizationRules
     def userAuthorizationRules=[]
 
@@ -25,7 +26,6 @@
         }
     }
 
-    //如果有一条规则匹配，则返回true
     def isAuthorized={controller,action->
         result=false
         userAuthorizationRules.each{rule->
@@ -35,12 +35,8 @@
             if(result ==false && controller==~rule_controller && action==~rule_action) result=true
         }
 
-        System.out.println "isAuthorized:"+controller+":"+action+":"+result
         return result
     }
-
-
-
     def navigationGroups=[
         [group:'用户管理', icon:'settings', items:[
             [controller: 'contact', action:'Index', chn: '联系人', image: 'group.png']        ,
@@ -76,7 +72,6 @@
     </style>
     <script type="text/javascript">
 Ext.onReady(function() {
-
     var viewport = new Ext.Viewport({
         layout: 'border',
         items: [
@@ -113,8 +108,6 @@ Ext.onReady(function() {
                 items: [
 <%
     def userNavigationGroups=[]
-    System.out.println "navigationGroups:"+navigationGroups
-    System.out.println "userAuthorizationRules:"+userAuthorizationRules
     for (naviGroup in navigationGroups) {
         naviGroup.items.each{item->
             if(isAuthorized(item.controller, item.action))
@@ -124,15 +117,8 @@ Ext.onReady(function() {
         }
     }
     userNavigationGroups=userNavigationGroups.unique()
-
-    System.out.println "userNavigationGroups:"+userNavigationGroups
-
     for (naviGroup in navigationGroups) {
-        if(!userNavigationGroups.contains(naviGroup.group))
-        {
-            continue
-        }
-
+        if(!userNavigationGroups.contains(naviGroup.group)){continue}
         items=[]
         naviGroup.items.each{item->
             if(isAuthorized(item.controller, item.action))
@@ -140,7 +126,6 @@ Ext.onReady(function() {
                 items << item
             }
         }
-
         groupItemsHtml=""
         naviGroup.items=items
         naviGroup.items.each{item-> groupItemsHtml=groupItemsHtml+tplGenerator(navigationItemTemplate, item)}
@@ -149,15 +134,15 @@ Ext.onReady(function() {
 
         print tplGenerator(navigationGroupTemplate,naviGroup)
 
-        System.out.println "tplGenerator:"+tplGenerator(navigationGroupTemplate,naviGroup)
-
         if(naviGroup.group!=userNavigationGroups[-1])
         {
             println ","
         }else{
             println ""
         }
-    }%>
+    }
+%>
+
                 ]
             },
             new Ext.TabPanel({
@@ -165,34 +150,32 @@ Ext.onReady(function() {
                 region: 'center',
                 deferredRender: false,
                 height: '100%',
-                //layout: 'fit',
                 activeTab: 0,
                 items: [{
                     contentEl: 'desktop',
                     title: '我的桌面',
                     closable: false,
-                    autoScroll: false
+                    autoScroll: true
                 }]
             })
             ]
         });
         if(Ext.get('contactIndex')!=null){Ext.get('contactIndex').on('click', function(){ addTab('contact','index','联系人管理');});}
-        Ext.get('sysRoleIndex').on('click', function(){ addTab('sysRole','index','角色管理');});
-        Ext.get('sysUserIndex').on('click', function(){ addTab('sysUser','index','用户管理');});
+        if(Ext.get('sysRoleIndex')!=null){Ext.get('sysRoleIndex').on('click', function(){ addTab('sysRole','index','角色管理');});}
+        if(Ext.get('sysUserIndex')!=null){Ext.get('sysUserIndex').on('click', function(){ addTab('sysUser','index','用户管理');});}
 
 });
 
-function session_check()
-{
-    var login='${session.getAttribute("login")}';
+function sessionCheck(){
+    var login='${session.getAt("login")}';
+
     if(login==null)
     {
-        window.location= "/triplelifestone_test/auth/logout";
+        window.location="/triplelifestone_test/auth/logout";
     }
 }
 function addTab(domain, action, chn) {
-
-    session_check();
+    sessionCheck();
 
     var mainTabPanel = Ext.getCmp('tabs');
     var tp = null;
