@@ -18,6 +18,14 @@ class BootStrap {
 
         frank.save()
 
+        for(i in 1..20)
+        {
+            frank=new SysUser(name: "弗兰克"+i.toString(),login: "frank"+i.toString(), password: "123456", enable: true)
+            frank.addToSysRoles(SysRole.findByCode("ROLE_ADMIN"))
+            frank.addToSysRoles(SysRole.findByCode("ROLE_USER"))
+
+            frank.save()
+        }
         println SysUser.findByLogin("frank").sysRoles
 
         println "authorizationRules:"

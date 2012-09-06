@@ -317,14 +317,14 @@ Ext.onReady(function(){
         loadMask:true,
         cm: cm,
         sm: sm,
-        height: 459,
+        height: '100%',
         autoScroll:false,
         viewConfig: {
             forceFit:true
         },
 
         bbar: new Ext.PagingToolbar({
-            pageSize: 15,
+            pageSize: 23,
             store: store,
             displayInfo: true,
             displayMsg: '显示第{0}条到第{1}条记录, 共{2}条',
@@ -332,7 +332,7 @@ Ext.onReady(function(){
         })
     });
 
-    store.load({params:{start:0,limit:15}});
+    store.load({params:{start:0,limit:23}});
 
     grid.on('dblclick', function(e) {
         var id = (grid.getSelectionModel().getSelected()).id;

@@ -53,7 +53,7 @@ class SysUserController {
         {
             render "{total:"+sysUserTotal+",root:[]}"
         } else {
-            def pageSize = 15
+            def pageSize = 23
             def startCurrentPage = params.start ? params.int('start') : 0
             def endCurrentPage = startCurrentPage + pageSize - 1>=sysUserTotal ? sysUserTotal - 1 : startCurrentPage + pageSize - 1
             def sysUserList = SysUser.findAll()[startCurrentPage..endCurrentPage]
@@ -76,7 +76,7 @@ class SysUserController {
         {
             render "{total:"+sysUserTotal+",root:[]}"
         } else {
-            def pageSize = 15
+            def pageSize = 23
             def startCurrentPage = params.start ? params.int('start'):0
             def endCurrentPage = startCurrentPage + pageSize - 1>=sysUserTotal ? sysUserTotal - 1 : startCurrentPage + pageSize - 1
 

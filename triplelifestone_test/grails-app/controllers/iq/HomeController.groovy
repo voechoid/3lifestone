@@ -15,8 +15,4 @@ class HomeController {
         println session.login
         println session.sysRoles
     }
-
-    def tmp(){
-
-    }
 }

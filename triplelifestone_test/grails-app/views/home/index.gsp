@@ -164,12 +164,14 @@ Ext.onReady(function() {
                 id: 'tabs',
                 region: 'center',
                 deferredRender: false,
+                height: '100%',
+                //layout: 'fit',
                 activeTab: 0,
                 items: [{
                     contentEl: 'desktop',
                     title: '我的桌面',
                     closable: false,
-                    autoScroll: true
+                    autoScroll: false
                 }]
             })
             ]
